@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.fasttrackit</groupId>
+    <artifactId>BloodPressureManager-service</artifactId>
+    <version>1.0-SNAPSHOT</version> <!-- Not relevant actually, version numbers overidden in CD pipeline jobs -->
+    <packaging>jar</packaging>
+    <name>BloodPressureManager Service</name>
+
+
+    <repositories>
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>http://repo.spring.io/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <spring.boot.version>1.3.0.RELEASE</spring.boot.version>
+        <spring.cloud.version>Brixton.M1</spring.cloud.version>
+        <lc.commons.authentication.version>17.05.77.0_d22f026</lc.commons.authentication.version>
+        <lc.commons.metrics.version>15.11.5.0_e59ac4b</lc.commons.metrics.version>
+        <pact.jvm.version>3.2.6</pact.jvm.version>
+        <joda.time.version>2.5</joda.time.version>
+        <maven.resources.plugin.version>2.6</maven.resources.plugin.version>
+        <maven.compiler.plugin.version>3.3</maven.compiler.plugin.version>
+        <git.commit.id.plugin.version>2.1.11</git.commit.id.plugin.version>
+        <jacoco.maven.plugin.version>0.7.4.201502262128</jacoco.maven.plugin.version>
+        <sonar.maven.plugin.version>2.5</sonar.maven.plugin.version>
+        <rpm.maven.plugin.version>2.1.3</rpm.maven.plugin.version>
+        <surefire.plugin.version>2.18.1</surefire.plugin.version>
+        <yaml.json.validator.maven.plugin.version>1.0.1</yaml.json.validator.maven.plugin.version>
+        <metrics.graphite.version>3.1.1</metrics.graphite.version>
+        <metrics.spring.version>3.1.0</metrics.spring.version>
+        <aspectj.weaver.version>1.8.6</aspectj.weaver.version>
+        <cucumber.version>1.2.4</cucumber.version>
+        <springfox.swagger.version>2.6.1</springfox.swagger.version>
+        <commons.io.version>2.5</commons.io.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <jersey.apache.client4.version>1.19.1</jersey.apache.client4.version>
+        <netflix.commons.util.version>0.1.1</netflix.commons.util.version>
+        <servo.core.version>0.9.4</servo.core.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <!-- Import dependency management from Spring Boot -->
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring.boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>9.1-901-1.jdbc4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>${joda.time.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons.io.version}</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-joda</artifactId>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectj.weaver.version}</version>
+        </dependency>
+
+
+    </dependencies>
+
+
+    <build>
+        <!-- Enable replacement of placeholders delimited by @..@ in resource files. -->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/static</directory>
+                <targetPath>static/</targetPath>
+            </resource>
+        </resources>
+
+        <plugins>
+            <!-- Package as an executable jar -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring.boot.version}</version>
+                <configuration>
+                    <mainClass>org.fasttrackit.bloodpressuremanager.BloodPressureManagerApplication</mainClass>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.plugin.version}</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+
+            <!-- Replace placeholders delimited by @..@ in resource files. -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>${maven.resources.plugin.version}</version>
+                <configuration>
+                    <delimiters>
+                        <delimiter>@</delimiter>
+                    </delimiters>
+                </configuration>
+            </plugin>
+
+
+            <!-- Used to record code coverage -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.maven.plugin.version}</version>
+                <configuration>
+                    <destFile>${basedir}/target/coverage-reports/jacoco.exec</destFile>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>jacoco-initialize</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>jacoco-site</id>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${surefire.plugin.version}</version>
+                <configuration>
+                    <includes>
+                        <include>**/*Should.java</include>
+                        <include>**/*Test.java</include>
+                    </includes>
+                    <argLine>-Dfile.encoding=UTF-8 ${argLine}
+                    </argLine> <!-- Required for proper encoding of generated Pact files. -->
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.github.sylvainlaurent.maven</groupId>
+                <artifactId>yaml-json-validator-maven-plugin</artifactId>
+                <version>${yaml.json.validator.maven.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>validate</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>validate</goal>
+                        </goals>
+                        <configuration>
+                            <validationSets>
+                                <validationSet>
+                                    <!-- no jsonSchema is specified, check only that file are well formed -->
+                                    <includes>
+                                        <include>src/main/resources/*.yml</include>
+                                    </includes>
+                                </validationSet>
+                            </validationSets>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
