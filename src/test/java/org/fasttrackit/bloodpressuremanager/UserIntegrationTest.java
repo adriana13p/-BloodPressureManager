@@ -36,4 +36,6 @@ public class UserIntegrationTest {
         User userOne = userService.findOneUser(1L);
         Assert.assertNotNull(userOne);
     }
+
+    // test the commit
 }
