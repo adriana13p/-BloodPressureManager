@@ -28,9 +28,8 @@ public class BloodPressureIntegrationTest {
         bloodPressure.setSbp(125);
         bloodPressure.setDbp(65);
         bloodPressure.setPulse(73);
-        bloodPressure.setDate("05.01.2019");
-        bloodPressure.setHour(15);
-        bloodPressure.setMinutes(32);
+        bloodPressure.setDate(12/03/2019, 11,30);
+
 
         //TODO : how to set the user id  if it is a foreign key !!!!!!
         //  bloodPressure.getBpUserId(1);

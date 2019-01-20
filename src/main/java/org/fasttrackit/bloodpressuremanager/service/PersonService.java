@@ -1,28 +1,28 @@
 package org.fasttrackit.bloodpressuremanager.service;
 
-import org.fasttrackit.bloodpressuremanager.domain.Person;
+import org.fasttrackit.bloodpressuremanager.domain.UserDetails;
 import org.fasttrackit.bloodpressuremanager.dto.PersonDTO;
 import org.fasttrackit.bloodpressuremanager.exception.NotFoundException;
 import org.fasttrackit.bloodpressuremanager.persistence.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * Service for Person
+ * Service for UserDetails
  */
 public class PersonService {
 
     @Autowired
     private PersonRepository personRepository;
 
-    public Person findOnePerson(Long idPerson) {
-        //find a person in the repository by idPerson
-        Person person = personRepository.findOne(idPerson);
-        //check if the person id exists in repository
-        if (person == null) {
+    public UserDetails findOnePerson(Long idPerson) {
+        //find a userDetails in the repository by idPerson
+        UserDetails userDetails = personRepository.findOne(idPerson);
+        //check if the userDetails id exists in repository
+        if (userDetails == null) {
             //if the id does not exist in repository, throw an exception
             throw new NotFoundException("" + idPerson);
         }
-        return person;
+        return userDetails;
     }
 
     public void savePerson(PersonDTO person) {
@@ -30,79 +30,79 @@ public class PersonService {
         //check person first name
         if (person.getPersonFirstNameDto() == null) {
             //if first name is null throw an exception
-            throw new IllegalArgumentException("Person's first name can not be null");
+            throw new IllegalArgumentException("UserDetails's first name can not be null");
         }
 
         //check person second name
         if (person.getPersonSecondNameDto() == null) {
             //if second name is null throw an exception
-            throw new IllegalArgumentException("Person's second name can not be null");
+            throw new IllegalArgumentException("UserDetails's second name can not be null");
         }
-        Person personObject = convertToObject(person);
+        UserDetails userDetailsObject = convertToObject(person);
 
         try {
-            personRepository.save(personObject);
+            personRepository.save(userDetailsObject);
         } catch (Exception e) {
             System.out.print("Error when saving person " + e);
         }
     }
 
-    public void deletePerson(Person person) {
-        //delete a person from repository
-        //check person ID
+    public void deletePerson(UserDetails userDetails) {
+        //delete a userDetails from repository
+        //check userDetails ID
 
         //TODO - ar trebui adaugata undeva o validare care sa verifica daca id-ul exista in repository?
 
         try {
-            personRepository.delete(person);
+            personRepository.delete(userDetails);
         } catch (Exception e) {
-            System.out.print("Error when deleting person " + e);
+            System.out.print("Error when deleting userDetails " + e);
         }
     }
 
     public PersonDTO getPersonById(long id) {
-        //search person by id in repository
-        Person person = personRepository.findOne(id);
-        if (person == null) {
+        //search userDetails by id in repository
+        UserDetails userDetails = personRepository.findOne(id);
+        if (userDetails == null) {
             throw new IllegalArgumentException("The id is not valid.");
         }
-        return convertToDTO(person);
+        return convertToDTO(userDetails);
     }
 
-    private PersonDTO convertToDTO(Person person) {
-        //convert person to personDto (set values for person in personDto)
-        PersonDTO personDTO = new PersonDTO("person", "dto"); //TODO: why do send the name = "UserDto" ?
-        personDTO.setPersonFirstNameDto(person.getPersonFirstName());
-        personDTO.setPersonSecondNameDto(person.getPersonSecondName());
-        personDTO.setIdPersonDto(person.getIdPerson());
-        personDTO.setAgeDto(person.getAge());
-        personDTO.setGenderDto(person.getGender());
-        personDTO.setNotesDto(person.getNotes());
+    private PersonDTO convertToDTO(UserDetails userDetails) {
+        //convert userDetails to personDto (set values for userDetails in personDto)
+        PersonDTO personDTO = new PersonDTO("userDetails", "dto"); //TODO: why do send the name = "UserDto" ?
+        personDTO.setPersonFirstNameDto(userDetails.getFirstName());
+        personDTO.setPersonSecondNameDto(userDetails.getSecondName());
+        personDTO.setIdPersonDto(userDetails.getIdDetails());
+        personDTO.setAgeDto(userDetails.getAge());
+        personDTO.setGenderDto(userDetails.getGender());
+        personDTO.setNotesDto(userDetails.getNotes());
         return personDTO;
     }
 
-    private Person convertToObject(PersonDTO personDTO) {
-        Person person = new Person();
-        person.setPersonFirstName(personDTO.getPersonFirstNameDto());
-        person.setPersonSecondName(personDTO.getPersonSecondNameDto());
-        person.setIdPerson(personDTO.getIdPersonDto());
-        person.setAge(personDTO.getAgeDto());
-        person.setGender(personDTO.getGenderDto());
-        person.setNotes(personDTO.getNotesDto());
-        return person;
+    private UserDetails convertToObject(PersonDTO personDTO) {
+        UserDetails userDetails = new UserDetails();
+        userDetails.setFirstName(personDTO.getPersonFirstNameDto());
+        userDetails.setSecondName(personDTO.getPersonSecondNameDto());
+        userDetails.setIdDetails(personDTO.getIdPersonDto());
+        userDetails.setAge(personDTO.getAgeDto());
+        userDetails.setGender(personDTO.getGenderDto());
+        userDetails.setNotes(personDTO.getNotesDto());
+        return userDetails;
     }
 
     public PersonDTO updatePerson(long id, PersonDTO dto) {
-        //update a person by id
-        Person person = personRepository.findOne(id);
-        person.setPersonFirstName(dto.getPersonFirstNameDto());
-        person.setPersonSecondName(dto.getPersonSecondNameDto());
-        person.setIdPerson(dto.getIdPersonDto());
-        person.setAge(dto.getAgeDto());
-        person.setGender(dto.getGenderDto());
-        person.setNotes(dto.getNotesDto());
+        //update a userDetails by id
+        UserDetails userDetails = personRepository.findOne(id);
+        userDetails.setFirstName(dto.getPersonFirstNameDto());
+        userDetails.setSecondName(dto.getPersonSecondNameDto());
+        userDetails.setIdDetails(dto.getIdPersonDto());
+        userDetails.setAge(dto.getAgeDto());
+        userDetails.setGender(dto.getGenderDto());
+        userDetails.setNotes(dto.getNotesDto());
 
-        Person savedObject = personRepository.save(person);
+        UserDetails savedObject = personRepository.save(userDetails);
         return convertToDTO(savedObject);
     }
 

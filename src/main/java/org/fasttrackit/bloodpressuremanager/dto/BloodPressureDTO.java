@@ -2,20 +2,16 @@ package org.fasttrackit.bloodpressuremanager.dto;
 
 import org.fasttrackit.bloodpressuremanager.domain.User;
 
+import java.util.Date;
+
 public class BloodPressureDTO {
 
     private Long idBloodPressureDto;
     private Integer sbpDto; //systolic blood pressure (the high value)
     private Integer dbpDto; //diastolic blood pressure (the low value)
     private Integer pulseDto;
+    private Date dateDto;
 
-    //TODO change it to date  !!!!!!!!!!!!!!!!!!!!!
-    private String dateDto;
-
-    //TODO should the hour and minutes be one variable? if yes which type? !!!!!!!!!!!!!!
-
-    private Integer hourDto;
-    private Integer minutesDto;
     private User userDto;
     private String bpNotesDto;
 
@@ -51,29 +47,14 @@ public class BloodPressureDTO {
         this.pulseDto = pulseDto;
     }
 
-    public String getDateDto() {
+    public Date getDateDto() {
         return dateDto;
     }
 
-    public void setDateDto(String dateDto) {
+    public void setDateDto(Date dateDto) {
         this.dateDto = dateDto;
     }
 
-    public Integer getHourDto() {
-        return hourDto;
-    }
-
-    public void setHourDto(Integer hourDto) {
-        this.hourDto = hourDto;
-    }
-
-    public Integer getMinutesDto() {
-        return minutesDto;
-    }
-
-    public void setMinutesDto(Integer minutesDto) {
-        this.minutesDto = minutesDto;
-    }
 
     public User getUserDto() {
         return userDto;
@@ -99,8 +80,6 @@ public class BloodPressureDTO {
                 ", diastolic blood pressure =" + dbpDto +
                 ", pulse=" + pulseDto +
                 ", date=" + dateDto +
-                ", hour=" + hourDto +
-                ", minutes=" + minutesDto +
                 ", user id =" + userDto.getIdUser() +
                 '}';
     }

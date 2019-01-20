@@ -1,6 +1,6 @@
 package org.fasttrackit.bloodpressuremanager;
 
-import org.fasttrackit.bloodpressuremanager.domain.Person;
+import org.fasttrackit.bloodpressuremanager.domain.UserDetails;
 import org.fasttrackit.bloodpressuremanager.service.PersonService;
 import org.junit.Assert;
 import org.junit.Test;
@@ -25,9 +25,9 @@ public class PersonIntegrationTest {
    /* @Test
     public void testSavePerson() {
         //save a person with all fields filled
-        Person person = new Person();
-        person.setPersonFirstName("Precup");
-        person.setPersonSecondName("Adriana");
+        UserDetails person = new UserDetails();
+        person.setFirstName("Precup");
+        person.setSecondName("Adriana");
         person.setAge(33);
         person.setGender('F');
         person.setNotes("no medication");
@@ -37,7 +37,7 @@ public class PersonIntegrationTest {
     @Test
     public void testFindPerson() {
         //find a person
-        Person personOne = personService.findOnePerson(1L);
-        Assert.assertNotNull(personOne);
+        UserDetails userDetailsOne = personService.findOnePerson(1L);
+        Assert.assertNotNull(userDetailsOne);
     }
 }

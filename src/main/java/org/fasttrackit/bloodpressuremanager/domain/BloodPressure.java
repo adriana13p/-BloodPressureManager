@@ -2,6 +2,7 @@ package org.fasttrackit.bloodpressuremanager.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * BloodPressure object:
@@ -39,16 +40,9 @@ public class BloodPressure implements Serializable {
     @Column(name = "pulse")
     private Integer pulse;
 
-    //TODO change it to date  !!!!!!!!!!!!!!!!!!!!!
     @Column(name = "date")
-    private String date;
+    private Date date;  //contains the day, month, year , hours and minutes
 
-    //TODO should the hour and minutes be one variable? if yes which type? !!!!!!!!!!!!!!
-    @Column(name = "hour")
-    private Integer hour;
-
-    @Column(name = "minutes")
-    private Integer minutes;
 
     //TODO not shore if this is ok. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //TODO (I want to have a field which contains the user's id, not sure if the type should be "User" or Integer)
@@ -91,28 +85,12 @@ public class BloodPressure implements Serializable {
         this.pulse = pulse;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
-    }
-
-    public Integer getHour() {
-        return hour;
-    }
-
-    public void setHour(Integer hour) {
-        this.hour = hour;
-    }
-
-    public Integer getMinutes() {
-        return minutes;
-    }
-
-    public void setMinutes(Integer minutes) {
-        this.minutes = minutes;
     }
 
     public User getBpUser() {
