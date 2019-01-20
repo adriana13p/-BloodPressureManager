@@ -1,6 +1,7 @@
 package org.fasttrackit.bloodpressuremanager;
 
 import org.fasttrackit.bloodpressuremanager.domain.BloodPressure;
+import org.fasttrackit.bloodpressuremanager.dto.BloodPressureDTO;
 import org.fasttrackit.bloodpressuremanager.service.BloodPressureService;
 import org.junit.Assert;
 import org.junit.Test;
@@ -10,6 +11,10 @@ import org.springframework.boot.test.ConfigFileApplicationContextInitializer;
 import org.springframework.boot.test.SpringApplicationContextLoader;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Tests for blood pressures
@@ -24,15 +29,25 @@ public class BloodPressureIntegrationTest {
     @Test
     public void testSaveBloodPressure() {
         //save a blood pressure with all fields filled
-        BloodPressure bloodPressure = new BloodPressure();
-        bloodPressure.setSbp(125);
-        bloodPressure.setDbp(65);
-        bloodPressure.setPulse(73);
-        bloodPressure.setDate(12/03/2019, 11,30);
+        BloodPressureDTO bloodPressureDTO = new BloodPressureDTO();
+        bloodPressureDTO.setSystolicBPDto(125);
+        bloodPressureDTO.setDiastolicBPDto(65);
+        bloodPressureDTO.setPulseBPDto(73);
+
+        //format a string into date
+        SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+        String dateInString = "13.10.2018 12:10";
+        try {
+            Date date = formatter.parse(dateInString);
+            bloodPressureDTO.setDateBPDto(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            System.out.println("Date could not be converted");
+        }
 
 
-        //TODO : how to set the user id  if it is a foreign key !!!!!!
-        //  bloodPressure.getBpUserId(1);
+        //TODO : how to set the user id  !!!!!!
+
     }
 
     @Test

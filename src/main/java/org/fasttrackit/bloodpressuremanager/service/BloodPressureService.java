@@ -28,14 +28,14 @@ public class BloodPressureService {
 
     public void saveBlodPressure(BloodPressure bloodPressure) {
         //save a BloodPressure in repository (doctorProstheticWork and patientName must not be null)
-        //check user id is not null
+      /*  //check user id is not null
         if (bloodPressure.getBpUser() == null) {
             //if bpUserId is null throw an exception
             throw new IllegalArgumentException("User's id can not be null");
-        }
+        }*/
 
         //check sbp and dbp
-        if ((bloodPressure.getSbp() == null) || (bloodPressure.getDbp() == null)) {
+        if ((bloodPressure.getSystolicBP() == null) || (bloodPressure.getDiastolicBP() == null)) {
             //if sbp is null throw an exception
             throw new IllegalArgumentException("Systolic blood pressure and diastolic blood pressure values can NOT be null");
         }

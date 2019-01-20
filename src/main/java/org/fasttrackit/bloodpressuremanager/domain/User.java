@@ -2,6 +2,8 @@ package org.fasttrackit.bloodpressuremanager.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * User object:
@@ -18,7 +20,7 @@ import java.io.Serializable;
 public class User implements Serializable {
 
     @Id
-    @Column(name = "id_user_pk")
+    @Column(name = "id_user")
     @GeneratedValue(generator = "user_generator")
     @SequenceGenerator(
             name = "user_generator",
@@ -29,6 +31,18 @@ public class User implements Serializable {
 
     @Column(name = "user_name", unique = true)
     private String userName;
+
+    @Column(name = "password")
+    private String password;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL) // one user to one user details
+    @JoinColumn(name = "user_id")
+    private UserDetails userDetailsr;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private List<BloodPressure> bloodPressures = new ArrayList<>();
+
 
     public Long getIdUser() {
         return idUser;
@@ -44,5 +58,24 @@ public class User implements Serializable {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("User{");
+        sb.append("idUser=").append(idUser);
+        sb.append(", userName='").append(userName).append('\'');
+        sb.append(", userDetailsr=").append(userDetailsr);
+        sb.append(", bloodPressures=").append(bloodPressures);
+        sb.append('}');
+        return sb.toString();
     }
 }

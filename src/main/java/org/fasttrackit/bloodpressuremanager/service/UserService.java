@@ -22,15 +22,23 @@ public class UserService {
             //if the id does not exist in repository, throw an exception
             throw new NotFoundException("" + idUser);
         }
+
+        //TODO - return only the user name and id (without password)
         return user;
     }
 
     public void saveUser(UserDTO user) {
-        //save a user in repository (only user name and must not be null)
+        //save a user in repository (user name and password must not be null)
         //check user's name
         if (user.getUserNameDto() == null) {
             //if name is null throw an exception
-            throw new IllegalArgumentException("User's name can not be null");
+            throw new IllegalArgumentException("User's name can NOT be null");
+        }
+
+        //check password
+        if (user.getPasswordDTO() == null) {
+            //if password is null throw an exception
+            throw new IllegalArgumentException("Password can NOT be null");
         }
 
         User userObject = convertToObject(user);
@@ -55,17 +63,19 @@ public class UserService {
     }
 
     private UserDTO convertToDTO(User user) {
-        //convert user to userDto (set values for user in userDto)
-        UserDTO userDTO = new UserDTO("UserDTO"); //TODO: why do send the name = "UserDto" ?
+        //convert user to userDto (set values for user in userDto) (without user's password)
+        UserDTO userDTO = new UserDTO("UserDTO"); //TODO: why do we send the name = "UserDto" ?
         userDTO.setUserNameDto(user.getUserName());
         userDTO.setIdUserDto(user.getIdUser());
         return userDTO;
     }
 
     private User convertToObject(UserDTO userDTO) {
+        //convert a user to object (with user's password)
         User user = new User();
         user.setUserName(userDTO.getUserNameDto());
         user.setIdUser(userDTO.getIdUserDto());
+        user.setPassword(userDTO.getPasswordDTO());
         return user;
     }
 
@@ -73,6 +83,7 @@ public class UserService {
         //update a user by id
         User user = userRepository.findOne(id);
         user.setUserName(dto.getUserNameDto());
+        user.setPassword(dto.getPasswordDTO());
 
         User savedObject = userRepository.save(user);
         return convertToDTO(savedObject);

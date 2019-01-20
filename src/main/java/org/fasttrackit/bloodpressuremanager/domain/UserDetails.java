@@ -18,7 +18,7 @@ import java.io.Serializable;
 public class UserDetails implements Serializable {
 
     @Id
-    @Column(name = "id_details_pk")
+    @Column(name = "id_details")
     @GeneratedValue(generator = "details_generator")
     @SequenceGenerator(
             name = "details_generator",
@@ -42,9 +42,6 @@ public class UserDetails implements Serializable {
     @Column(name = "notes")
     private String notes;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL) // many blood pressures to one user
-    @JoinColumn(name = "user_id_fk")
-    private User user;
 
     public Long getIdDetails() {
         return idDetails;
@@ -94,11 +91,16 @@ public class UserDetails implements Serializable {
         this.notes = notes;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("UserDetails{");
+        sb.append("idDetails=").append(idDetails);
+        sb.append(", firstName='").append(firstName).append('\'');
+        sb.append(", secondName='").append(secondName).append('\'');
+        sb.append(", age=").append(age);
+        sb.append(", gender=").append(gender);
+        sb.append(", notes='").append(notes).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }
