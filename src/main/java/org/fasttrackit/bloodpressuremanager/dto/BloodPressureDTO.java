@@ -1,7 +1,5 @@
 package org.fasttrackit.bloodpressuremanager.dto;
 
-import org.fasttrackit.bloodpressuremanager.domain.User;
-
 import java.util.Date;
 
 public class BloodPressureDTO {

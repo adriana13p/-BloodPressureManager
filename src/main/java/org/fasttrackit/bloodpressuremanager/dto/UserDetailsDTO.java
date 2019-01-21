@@ -8,7 +8,8 @@ public class UserDetailsDTO {
     private char genderDto;
     private String notesDto;
 
-    public UserDetailsDTO() {}
+    public UserDetailsDTO() {
+    }
 
     public UserDetailsDTO(String firstNameDto, String secondNameDto) {
         this.firstNameDto = firstNameDto;

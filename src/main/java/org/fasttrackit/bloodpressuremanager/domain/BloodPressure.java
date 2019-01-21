@@ -1,20 +1,21 @@
 package org.fasttrackit.bloodpressuremanager.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
 /**
  * BloodPressure object:
  * -contains: BloodPressure's id, systolicBP (systolic blood pressure-the high value), diastolicBP (diastolic blood pressure-the low value),
- * pulseBP, dateBP, hour, minutes, userId and notes_BP
+ * pulseBP, dateBP, and notes_BP, and a user
  * <p>
- * -mandatory for repository: - only idBP, and userId fields must NOT be null for the repository
- * -  id_bp_pk is primary key (idBP)
- * -  user_id_fk is foreign key for id_user_pk from users table
+ * -mandatory for repository: - only idBP, and user_id_fk fields must NOT be null for the repository
+ * -  id_bp is primary key (idBP)
+ * -  user_id_fk is foreign key for id_user from users table
  * <p>
  * -ex: idBP  = 1, systolicBP = "125", diastolicBP= "67", pulseBP= 76, dateBP = 15.05.2018 13:25
- *      bpUserId = "2" and notes_BP = "after 1 cup of coffee"
+ * bpUserId = "2" and notes_BP = "after 1 cup of coffee", user_id_fk ="2"
  */
 
 @Entity
@@ -46,14 +47,12 @@ public class BloodPressure implements Serializable {
     @Column(name = "notes_bp")
     private String notes_BP;
 
-/*
-
-    //TODO not shore if this is ok. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//TODO (I want to have a field which contains the user's id, not sure if the type should be "User" or Integer)
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL) // many blood pressures to one user
-    @JoinColumn(name = "bp_user_id_fk")
-    private User bpUser;
-*/
+    @ManyToOne
+    @JoinColumn(name = "user_id_fk")
+    //"blood_pressures" table is the one that contains the foreign key to "users" table
+    //("user_id_fk" column from "blood_pressures" table is the foreign key)
+    private @NotNull
+    User user;
 
 
     public Long getIdBP() {
@@ -104,14 +103,13 @@ public class BloodPressure implements Serializable {
         this.notes_BP = notes_BP;
     }
 
-       /* public User getBpUser() {
-        return bpUser;
+    public User getUser() {
+        return user;
     }
 
-    public void setBpUser(User bpUser) {
-        this.bpUser = bpUser;
+    public void setUser(User user) {
+        this.user = user;
     }
-*/
 
     @Override
     public String toString() {
@@ -122,6 +120,7 @@ public class BloodPressure implements Serializable {
         sb.append(", pulseBP=").append(pulseBP);
         sb.append(", dateBP=").append(dateBP);
         sb.append(", notes_BP='").append(notes_BP).append('\'');
+        sb.append(", user=").append(user);
         sb.append('}');
         return sb.toString();
     }
