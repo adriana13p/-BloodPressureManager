@@ -30,7 +30,7 @@ public class BloodPressure implements Serializable {
             sequenceName = "bloodPressure_sequence",
             initialValue = 1
     )
-    private Long idBP;
+    private long idBP;
 
     @Column(name = "systolic_bp")
     private Integer systolicBP; //systolic blood pressure (the high value)
@@ -51,15 +51,14 @@ public class BloodPressure implements Serializable {
     @JoinColumn(name = "user_id_fk")
     //"blood_pressures" table is the one that contains the foreign key to "users" table
     //("user_id_fk" column from "blood_pressures" table is the foreign key)
-    private @NotNull
-    User user;
+    private @NotNull User user;
 
 
-    public Long getIdBP() {
+    public long getIdBP() {
         return idBP;
     }
 
-    public void setIdBP(Long idBP) {
+    public void setIdBP(long idBP) {
         this.idBP = idBP;
     }
 

@@ -5,16 +5,18 @@ import org.fasttrackit.bloodpressuremanager.dto.UserDTO;
 import org.fasttrackit.bloodpressuremanager.exception.NotFoundException;
 import org.fasttrackit.bloodpressuremanager.persistence.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Service for User
  */
+@Service
 public class UserService {
 
     @Autowired
     private UserRepository userRepository;
 
-    public User findOneUser(Long idUser) {
+    public User findOneUser(long idUser) {
         //find a user in the repository by idUser
         User user = userRepository.findOne(idUser);
         //check if the user id exists in repository
@@ -36,7 +38,7 @@ public class UserService {
         }
 
         //check password
-        if (user.getPasswordDTO() == null) {
+        if (user.getPasswordDto() == null) {
             //if password is null throw an exception
             throw new IllegalArgumentException("Password can NOT be null");
         }
@@ -75,7 +77,7 @@ public class UserService {
         User user = new User();
         user.setUserName(userDTO.getUserNameDto());
         user.setIdUser(userDTO.getIdUserDto());
-        user.setPassword(userDTO.getPasswordDTO());
+        user.setPassword(userDTO.getPasswordDto());
         return user;
     }
 
@@ -83,7 +85,7 @@ public class UserService {
         //update a user by id
         User user = userRepository.findOne(id);
         user.setUserName(dto.getUserNameDto());
-        user.setPassword(dto.getPasswordDTO());
+        user.setPassword(dto.getPasswordDto());
 
         User savedObject = userRepository.save(user);
         return convertToDTO(savedObject);

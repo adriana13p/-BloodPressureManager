@@ -36,7 +36,7 @@ public class UserIntegrationTest {
         //save a user
         UserDTO userToSave = new UserDTO();
         userToSave.setUserNameDto("David13");
-        userToSave.setPasswordDTO("David13");
+        userToSave.setPasswordDto("David13");
         userService.saveUser(userToSave);
     }
 

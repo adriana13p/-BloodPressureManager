@@ -4,19 +4,21 @@ import java.util.Date;
 
 public class BloodPressureDTO {
 
-    private Long idBPDto;
+    private long idBPDto;
     private Integer systolicBPDto; //systolic blood pressure (the high value)
     private Integer diastolicBPDto; //diastolic blood pressure (the low value)
     private Integer pulseBPDto;
     private Date dateBPDto;
-
     private String notesBPDto;
+    private long idUserDto;
 
-    public Long getIdBPDto() {
+
+
+    public long getIdBPDto() {
         return idBPDto;
     }
 
-    public void setIdBPDto(Long idBPDto) {
+    public void setIdBPDto(long idBPDto) {
         this.idBPDto = idBPDto;
     }
 
@@ -60,6 +62,14 @@ public class BloodPressureDTO {
         this.notesBPDto = notesBPDto;
     }
 
+    public long getIdUserDto() {
+        return idUserDto;
+    }
+
+    public void setIdUserDto(long idUserDto) {
+        this.idUserDto = idUserDto;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("BloodPressureDTO{");
@@ -69,6 +79,7 @@ public class BloodPressureDTO {
         sb.append(", pulseBPDto=").append(pulseBPDto);
         sb.append(", dateBPDto=").append(dateBPDto);
         sb.append(", notesBPDto='").append(notesBPDto).append('\'');
+        sb.append(", idUserDto=").append(idUserDto);
         sb.append('}');
         return sb.toString();
     }

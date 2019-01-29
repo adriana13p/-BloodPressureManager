@@ -7,22 +7,25 @@ public class UserDetailsDTO {
     private Integer ageDto;
     private char genderDto;
     private String notesDto;
+    private long idUserDto;
 
     public UserDetailsDTO() {
     }
+
 
     public UserDetailsDTO(String firstNameDto, String secondNameDto) {
         this.firstNameDto = firstNameDto;
         this.secondNameDto = secondNameDto;
     }
 
-    public UserDetailsDTO(long idDetailsDto, String firstNameDto, String secondNameDto, Integer ageDto, char genderDto, String notesDto) {
+    public UserDetailsDTO(long idDetailsDto, String firstNameDto, String secondNameDto, Integer ageDto, char genderDto, String notesDto, long idUserDto) {
         this.idDetailsDto = idDetailsDto;
         this.firstNameDto = firstNameDto;
         this.secondNameDto = secondNameDto;
         this.ageDto = ageDto;
         this.genderDto = genderDto;
         this.notesDto = notesDto;
+        this.idUserDto = idUserDto;
     }
 
     public long getIdDetailsDto() {
@@ -73,6 +76,14 @@ public class UserDetailsDTO {
         this.notesDto = notesDto;
     }
 
+    public long getIdUserDto() {
+        return idUserDto;
+    }
+
+    public void setIdUserDto(long idUserDto) {
+        this.idUserDto = idUserDto;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("UserDetailsDTO{");
@@ -82,6 +93,7 @@ public class UserDetailsDTO {
         sb.append(", ageDto=").append(ageDto);
         sb.append(", genderDto=").append(genderDto);
         sb.append(", notesDto='").append(notesDto).append('\'');
+        sb.append(", idUserDto=").append(idUserDto);
         sb.append('}');
         return sb.toString();
     }

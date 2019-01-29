@@ -29,7 +29,7 @@ public class User implements Serializable {
             sequenceName = "user_sequence",
             initialValue = 1
     )
-    private Long idUser;
+    private long idUser;
 
     @Column(name = "user_name", unique = true)
     private String userName;
@@ -44,17 +44,17 @@ public class User implements Serializable {
     private UserDetails userDetails;
 
 
-    @OneToMany(mappedBy = "blood_pressures", cascade = CascadeType.ALL) //many blood pressures to one user
+    @OneToMany(mappedBy = "user") //many blood pressures to one user
     //"blood_pressures" table is the one that contains the foreign key to "users" table
     //("user_id_fk column from "blood_pressures" table is the foreign key)
     private List<BloodPressure> bloodPressures = new ArrayList<>();
 
 
-    public Long getIdUser() {
+    public long getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(Long idUser) {
+    public void setIdUser(long idUser) {
         this.idUser = idUser;
     }
 

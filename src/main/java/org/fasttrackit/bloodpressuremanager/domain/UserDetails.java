@@ -25,7 +25,7 @@ public class UserDetails implements Serializable {
             sequenceName = "details_sequence",
             initialValue = 1
     )
-    private Long idDetails;
+    private long idDetails;
 
     @Column(name = "first_name")
     private String firstName;
@@ -42,18 +42,17 @@ public class UserDetails implements Serializable {
     @Column(name = "notes")
     private String notes;
 
-    @OneToOne(mappedBy = "users_details") //one user to one user details
+    @OneToOne(mappedBy = "userDetails") //one user to one user details
     //"users" table is the one that contains the foreign key to "users_details" table
     //("users_details_id_fk column from "users" table is the foreign key)
-    private @NotNull
-    User user;
+    private @NotNull User user;
 
 
-    public Long getIdDetails() {
+    public long getIdDetails() {
         return idDetails;
     }
 
-    public void setIdDetails(Long idDetails) {
+    public void setIdDetails(long idDetails) {
         this.idDetails = idDetails;
     }
 

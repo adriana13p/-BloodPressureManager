@@ -3,7 +3,7 @@ package org.fasttrackit.bloodpressuremanager.dto;
 public class UserDTO {
     private long idUserDto;
     private String userNameDto;
-    private String passwordDTO;
+    private String passwordDto;
 
 
     public UserDTO() {
@@ -14,9 +14,9 @@ public class UserDTO {
         this.userNameDto = userNameDto;
     }
 
-    public UserDTO(String userNameDto, String passwordDTO) {
+    public UserDTO(String userNameDto, String passwordDto) {
         this.userNameDto = userNameDto;
-        this.passwordDTO = passwordDTO;
+        this.passwordDto = passwordDto;
     }
 
     public long getIdUserDto() {
@@ -35,12 +35,12 @@ public class UserDTO {
         this.userNameDto = userNameDto;
     }
 
-    public String getPasswordDTO() {
-        return passwordDTO;
+    public String getPasswordDto() {
+        return passwordDto;
     }
 
-    public void setPasswordDTO(String passwordDTO) {
-        this.passwordDTO = passwordDTO;
+    public void setPasswordDto(String passwordDto) {
+        this.passwordDto = passwordDto;
     }
 
     @Override

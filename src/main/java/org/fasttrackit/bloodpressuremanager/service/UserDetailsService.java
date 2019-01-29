@@ -5,16 +5,18 @@ import org.fasttrackit.bloodpressuremanager.dto.UserDetailsDTO;
 import org.fasttrackit.bloodpressuremanager.exception.NotFoundException;
 import org.fasttrackit.bloodpressuremanager.persistence.UserDetailsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Service for UserDetails
  */
+@Service
 public class UserDetailsService {
 
     @Autowired
     private UserDetailsRepository userDetailsRepository;
 
-    public UserDetails findOneUserDetails(Long idUserDetails) {
+    public UserDetails findOneUserDetails(long idUserDetails) {
         //find a userDetails in the repository by idPerson
         UserDetails userDetails = userDetailsRepository.findOne(idUserDetails);
         //check if the userDetails id exists in repository

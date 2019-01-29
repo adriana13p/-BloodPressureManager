@@ -4,17 +4,19 @@ import org.fasttrackit.bloodpressuremanager.domain.BloodPressure;
 import org.fasttrackit.bloodpressuremanager.exception.NotFoundException;
 import org.fasttrackit.bloodpressuremanager.persistence.BloodPressureRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Service for Blood Pressure
  */
+@Service
 public class BloodPressureService {
 
     @Autowired
     private BloodPressureRepository bloodPressureRepository;
 
 
-    public BloodPressure findOneBloodPressure(Long idBloodPressure) {
+    public BloodPressure findOneBloodPressure(long idBloodPressure) {
         //find a BloodPressure in the repository by idBloodPressure
         BloodPressure bloodPressure = bloodPressureRepository.findOne(idBloodPressure);
         //check if the BloodPressure id exists in repository

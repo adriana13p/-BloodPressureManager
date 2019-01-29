@@ -4,7 +4,7 @@ application:
 environment:
   name: dev
 server:
-  port: 8010 # Choose a unique port for each service
+  port: 8031 # Choose a unique port for each service
   compression:
     enabled: true
     mime-types: application/json,application/xml,text/html,text/xml,text/plain,application/octet-stream,multipart/form-data
