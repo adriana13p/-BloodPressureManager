@@ -1,9 +1,13 @@
 package org.fasttrackit.bloodpressuremanager.service;
 
+import org.fasttrackit.bloodpressuremanager.domain.User;
 import org.fasttrackit.bloodpressuremanager.domain.UserDetails;
 import org.fasttrackit.bloodpressuremanager.dto.UserDetailsDTO;
 import org.fasttrackit.bloodpressuremanager.exception.NotFoundException;
+import org.fasttrackit.bloodpressuremanager.mapper.UserDetailsConverter;
 import org.fasttrackit.bloodpressuremanager.persistence.UserDetailsRepository;
+import org.fasttrackit.bloodpressuremanager.persistence.UserRepository;
+import org.fasttrackit.bloodpressuremanager.util.CheckUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,32 +19,22 @@ public class UserDetailsService {
 
     @Autowired
     private UserDetailsRepository userDetailsRepository;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private UserDetailsConverter userDetailsConverter;
 
-    public UserDetails findOneUserDetails(long idUserDetails) {
-        //find a userDetails in the repository by idPerson
-        UserDetails userDetails = userDetailsRepository.findOne(idUserDetails);
-        //check if the userDetails id exists in repository
-        if (userDetails == null) {
-            //if the id does not exist in repository, throw an exception
-            throw new NotFoundException("" + idUserDetails);
-        }
-        return userDetails;
-    }
 
     public void saveUserDetails(UserDetailsDTO userDetailsDTO) {
         //save user details in repository (first name and second name must not be null)
         //check first name
-        if (userDetailsDTO.getFirstNameDto() == null) {
-            //if first name is null throw an exception
-            throw new IllegalArgumentException("UserDetails's first name can not be null");
-        }
+        CheckUtils.checkStringIsNotNull(userDetailsDTO.getFirstNameDto(), "UserDetails's first name");
 
         //check second name
-        if (userDetailsDTO.getSecondNameDto() == null) {
-            //if second name is null throw an exception
-            throw new IllegalArgumentException("UserDetails's second name can not be null");
-        }
-        UserDetails userDetailsObject = convertToObject(userDetailsDTO);
+        CheckUtils.checkStringIsNotNull(userDetailsDTO.getSecondNameDto(), "UserDetails's second name");
+
+        User user = userRepository.findOne(userDetailsDTO.getIdUserDto());
+        UserDetails userDetailsObject = userDetailsConverter.convertToObject(userDetailsDTO, user);
 
         try {
             userDetailsRepository.save(userDetailsObject);
@@ -52,46 +46,26 @@ public class UserDetailsService {
     public void deleteUserDetails(UserDetails userDetails) {
         //delete a userDetails from repository
         //check userDetails ID
-
-        //TODO - ar trebui adaugata undeva o validare care sa verifica daca id-ul exista in repository?
-
-        try {
-            userDetailsRepository.delete(userDetails);
-        } catch (Exception e) {
-            System.out.print("Error when deleting userDetails " + e);
+        boolean userDetailsExists = checkUserDetailsIdExistInRepository(userDetails.getIdDetails());
+        if (userDetailsExists == true) {
+            //if the userDetails id exists in repository, delete the user details
+            try {
+                userDetailsRepository.delete(userDetails);
+            } catch (Exception e) {
+                System.out.print("Error when deleting userDetails " + e);
+            }
+        } else {
+            System.out.println("User details for id " + userDetails.getIdDetails() + "does not exist");
         }
     }
 
-    public UserDetailsDTO getUserDetailsById(long id) {
+    public UserDetailsDTO getUserDetailsById(long idUserDetails) {
         //search userDetails by id in repository
-        UserDetails userDetails = userDetailsRepository.findOne(id);
+        UserDetails userDetails = userDetailsRepository.findOne(idUserDetails);
         if (userDetails == null) {
             throw new IllegalArgumentException("The user details id is not valid.");
         }
-        return convertToDTO(userDetails);
-    }
-
-    private UserDetailsDTO convertToDTO(UserDetails userDetails) {
-        //convert userDetails to userDetailsDto (set values for userDetails in userDetailsDto)
-        UserDetailsDTO userDetailsDTO = new UserDetailsDTO("userDetails", "dto"); //TODO: why do send the name = "UserDto" ?
-        userDetailsDTO.setFirstNameDto(userDetails.getFirstName());
-        userDetailsDTO.setSecondNameDto(userDetails.getSecondName());
-        userDetailsDTO.setIdDetailsDto(userDetails.getIdDetails());
-        userDetailsDTO.setAgeDto(userDetails.getAge());
-        userDetailsDTO.setGenderDto(userDetails.getGender());
-        userDetailsDTO.setNotesDto(userDetails.getNotes());
-        return userDetailsDTO;
-    }
-
-    private UserDetails convertToObject(UserDetailsDTO userDetailsDTO) {
-        UserDetails userDetails = new UserDetails();
-        userDetails.setFirstName(userDetailsDTO.getFirstNameDto());
-        userDetails.setSecondName(userDetailsDTO.getSecondNameDto());
-        userDetails.setIdDetails(userDetailsDTO.getIdDetailsDto());
-        userDetails.setAge(userDetailsDTO.getAgeDto());
-        userDetails.setGender(userDetailsDTO.getGenderDto());
-        userDetails.setNotes(userDetailsDTO.getNotesDto());
-        return userDetails;
+        return userDetailsConverter.convertToDTO(userDetails);
     }
 
     public UserDetailsDTO updateUserDetails(long id, UserDetailsDTO dto) {
@@ -105,7 +79,19 @@ public class UserDetailsService {
         userDetails.setNotes(dto.getNotesDto());
 
         UserDetails savedObject = userDetailsRepository.save(userDetails);
-        return convertToDTO(savedObject);
+        return userDetailsConverter.convertToDTO(savedObject);
     }
 
+    public boolean checkUserDetailsIdExistInRepository(long idUserDetails) {
+        //heck if the userDetails id exists in repository
+        boolean userDetailsExists = false;
+        //find a userDetails in the repository by userName
+        UserDetails userDetails = userDetailsRepository.findOne(idUserDetails);
+        //check if the userDetails exists in repository
+        if (!(userDetails == null)) {
+            //if the userDetails id exists in repository set the flag to true
+            userDetailsExists = true;
+        }
+        return userDetailsExists;
+    }
 }

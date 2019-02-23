@@ -5,7 +5,6 @@ public class UserDTO {
     private String userNameDto;
     private String passwordDto;
 
-
     public UserDTO() {
 
     }

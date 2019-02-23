@@ -8,14 +8,14 @@ import java.util.Date;
 /**
  * BloodPressure object:
  * -contains: BloodPressure's id, systolicBP (systolic blood pressure-the high value), diastolicBP (diastolic blood pressure-the low value),
- * pulseBP, dateBP, and notes_BP, and a user
+ * pulseBP, dateBP, and notesBP, and a user
  * <p>
  * -mandatory for repository: - only idBP, and user_id_fk fields must NOT be null for the repository
  * -  id_bp is primary key (idBP)
  * -  user_id_fk is foreign key for id_user from users table
  * <p>
  * -ex: idBP  = 1, systolicBP = "125", diastolicBP= "67", pulseBP= 76, dateBP = 15.05.2018 13:25
- * bpUserId = "2" and notes_BP = "after 1 cup of coffee", user_id_fk ="2"
+ * bpUserId = "2" and notesBP = "after 1 cup of coffee", user_id_fk ="2"
  */
 
 @Entity
@@ -45,7 +45,7 @@ public class BloodPressure implements Serializable {
     private Date dateBP;  //contains the day, month, year , hours and minutes
 
     @Column(name = "notes_bp")
-    private String notes_BP;
+    private String notesBP;
 
     @ManyToOne
     @JoinColumn(name = "user_id_fk")
@@ -94,12 +94,12 @@ public class BloodPressure implements Serializable {
         this.dateBP = dateBP;
     }
 
-    public String getNotes_BP() {
-        return notes_BP;
+    public String getNotesBP() {
+        return notesBP;
     }
 
-    public void setNotes_BP(String notes_BP) {
-        this.notes_BP = notes_BP;
+    public void setNotesBP(String notesBP) {
+        this.notesBP = notesBP;
     }
 
     public User getUser() {
@@ -118,7 +118,7 @@ public class BloodPressure implements Serializable {
         sb.append(", diastolicBP=").append(diastolicBP);
         sb.append(", pulseBP=").append(pulseBP);
         sb.append(", dateBP=").append(dateBP);
-        sb.append(", notes_BP='").append(notes_BP).append('\'');
+        sb.append(", notesBP='").append(notesBP).append('\'');
         sb.append(", user=").append(user);
         sb.append('}');
         return sb.toString();

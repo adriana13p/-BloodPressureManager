@@ -23,7 +23,7 @@ public class UserController {
 
 
     @RequestMapping(path = "/user", method = RequestMethod.POST)
-    public void saveUser(@RequestBody UserDTO user) {
+    public void saveUser(@RequestBody UserDTO user) throws Exception {
         LOGGER.info("user >> {}", user.getUserNameDto());
         //save a user
         userService.saveUser(user);

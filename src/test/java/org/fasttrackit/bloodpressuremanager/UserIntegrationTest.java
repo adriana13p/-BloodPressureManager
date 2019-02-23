@@ -1,8 +1,11 @@
 package org.fasttrackit.bloodpressuremanager;
 
-import org.fasttrackit.bloodpressuremanager.domain.User;
 import org.fasttrackit.bloodpressuremanager.dto.UserDTO;
+import org.fasttrackit.bloodpressuremanager.dto.UserDetailsDTO;
+import org.fasttrackit.bloodpressuremanager.mapper.UserDetailsConverter;
+import org.fasttrackit.bloodpressuremanager.service.BloodPressureService;
 import org.fasttrackit.bloodpressuremanager.service.UserService;
+import org.fasttrackit.bloodpressuremanager.util.PrintUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,12 +29,14 @@ public class UserIntegrationTest {
     @Autowired
     private UserService userService;
 
-    @Test
-    public void testSaveUser() {
+    @Autowired
+    private BloodPressureService bloodPressureService;
 
-        //TODO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        //TODO -- this test is failing with:
-        //TODO:  java.lang.IllegalStateException: Failed to load ApplicationContext
+    @Autowired
+    private UserDetailsConverter userDetailsConverter;
+
+    @Test
+    public void testSaveUser() throws Exception {
 
         //save a user
         UserDTO userToSave = new UserDTO();
@@ -41,9 +46,49 @@ public class UserIntegrationTest {
     }
 
     @Test
-    public void testFindUser() {
-        //find a user
-        User userOne = userService.findOneUser(1L);
-        Assert.assertNotNull(userOne);
+    public void testSaveUserWithDetails() throws Exception {
+
+        //save a user with userDetails
+        UserDTO userToSave = new UserDTO();
+        userToSave.setUserNameDto("Cris36");
+        userToSave.setPasswordDto("Cris36");
+
+        //save a userDetails with all fields filled
+        UserDetailsDTO userDetailsDto = new UserDetailsDTO();
+        userDetailsDto.setFirstNameDto("Avram");
+        userDetailsDto.setSecondNameDto("Cristian");
+        userDetailsDto.setAgeDto(36);
+        userDetailsDto.setGenderDto('M');
+        userDetailsDto.setNotesDto("treatment with Prestarium 5mg");
+        //save the user with the user details
+        userService.saveUserWithDetails(userToSave, userDetailsConverter.convertToObjectWithoutUser(userDetailsDto));
+    }
+
+    @Test
+    public void testFindUserById() {
+        //find a user by Id
+        UserDTO userToFind = userService.getUserById(7L);
+        Assert.assertNotNull(userToFind);
+        //print user Name and Id
+        PrintUtils.printUserNameAndId(userToFind);
+    }
+
+    @Test
+    public void testFindUserByUserName() {
+        //find a user by Id
+        UserDTO userToFind = userService.getUserByUserName("Cris35");
+        Assert.assertNotNull(userToFind);
+        //print user Name and Id
+        PrintUtils.printUserNameAndId(userToFind);
+    }
+
+    @Test
+    public void updateAUser(){
+        //update a user
+        UserDTO userToUpdate = new UserDTO();
+        userToUpdate.setUserNameDto("Laura");
+        userToUpdate.setPasswordDto("Laura");
+        userService.updateUser(5, userToUpdate);
+        System.out.println("User was updated");
     }
 }

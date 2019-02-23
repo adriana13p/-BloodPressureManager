@@ -16,7 +16,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * Tests for persons
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = BloodPressureManagerApplication.class, loader = SpringApplicationContextLoader.class, initializers = ConfigFileApplicationContextInitializer.class)
+@ContextConfiguration(classes = BloodPressureManagerApplication.class,
+        loader = SpringApplicationContextLoader.class,
+        initializers = ConfigFileApplicationContextInitializer.class)
 public class UserDetailsIntegrationTest {
 
     @Autowired
@@ -25,8 +27,9 @@ public class UserDetailsIntegrationTest {
 
     @Test
     public void testSaveUserDetails() {
-        //save a person with all fields filled
+        //save a userDetails with all fields filled
         UserDetailsDTO userDetailsDto = new UserDetailsDTO();
+        userDetailsDto.setIdUserDto(1);
         userDetailsDto.setFirstNameDto("Precup");
         userDetailsDto.setSecondNameDto("Adriana");
         userDetailsDto.setAgeDto(33);
@@ -38,7 +41,7 @@ public class UserDetailsIntegrationTest {
     @Test
     public void testFindUserDetails() {
         //find user details
-        UserDetails userDetailsOne = userDetailsService.findOneUserDetails(1L);
-        Assert.assertNotNull(userDetailsOne);
+        UserDetailsDTO userDetailsDTO = userDetailsService.getUserDetailsById(1L);
+        Assert.assertNotNull(userDetailsDTO);
     }
 }
