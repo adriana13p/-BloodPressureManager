@@ -25,19 +25,18 @@ public class PrintUtils {
         System.out.println("*****************");
     }
 
-    public static void printBloodPressureDto(BloodPressure bloodPressure) {
+    public static void printBloodPressureDto(BloodPressureDTO bloodPressureToPrint) {
         //print a blood pressures dto
         System.out.println("*********** Blood Pressures ***************");
 
         System.out.println("Blood Pressure measurement ");
-        System.out.println(bloodPressure.getIdBP());
-        System.out.println(bloodPressure.getDateBP());
-        System.out.println(bloodPressure.getDiastolicBP());
-        System.out.println(bloodPressure.getSystolicBP());
-        System.out.println(bloodPressure.getPulseBP());
-        System.out.println(bloodPressure.getNotesBP());
+        System.out.println(bloodPressureToPrint.getIdBPDto());
+        System.out.println(bloodPressureToPrint.getDateBPDto());
+        System.out.println(bloodPressureToPrint.getDiastolicBPDto());
+        System.out.println(bloodPressureToPrint.getSystolicBPDto());
+        System.out.println(bloodPressureToPrint.getPulseBPDto());
+        System.out.println(bloodPressureToPrint.getNotesBPDto());
         System.out.println("--------------");
-
 
         System.out.println("*****************");
     }

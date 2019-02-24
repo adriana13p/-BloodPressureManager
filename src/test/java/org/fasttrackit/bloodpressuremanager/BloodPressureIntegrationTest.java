@@ -49,7 +49,7 @@ public class BloodPressureIntegrationTest {
     @Test
     public void testFindBloodPressureById() {
         //find a blood pressure by  id
-        BloodPressure bloodPressureOne = bloodPressureService.getBloodPressureById(13L);
+        BloodPressureDTO bloodPressureOne = bloodPressureService.getBloodPressureById(13L);
         Assert.assertNotNull(bloodPressureOne);
         PrintUtils.printBloodPressureDto(bloodPressureOne);
     }
