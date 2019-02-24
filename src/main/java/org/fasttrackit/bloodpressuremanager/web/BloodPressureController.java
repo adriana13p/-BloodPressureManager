@@ -24,14 +24,14 @@ public class BloodPressureController {
         return bloodPressureService.getBloodPressureById(id);
     }
 
-    @RequestMapping(path = "/bloodPressureByDate/userId/{idUser}/date/{dateForBP}", method = RequestMethod.GET)
+    @RequestMapping(path = "/bloodPressureByDate/{idUser}/{dateForBP}", method = RequestMethod.GET)
     public List<BloodPressureDTO> getBloodPressureListByUserAndDate(@PathVariable("idUser") long idUser,
                                                                     @PathVariable("dateForBP") Date dateForBP) {
         //get a bloodPressure list  by user id and bloodPressure date
         return bloodPressureService.getBloodPressureListByUserAndDate(idUser, dateForBP);
     }
 
-    @RequestMapping(path = "/bloodPressureByDateBetween/userId/{idUser}/startDate/{startDate}/endDate/{endDate}",
+    @RequestMapping(path = "/bloodPressureByDateBetween/{idUser}/{startDate}/{endDate}",
             method = RequestMethod.GET)
     public List<BloodPressureDTO> getBloodPressureListByUserAndDateBetween(@PathVariable("idUser") long idUser,
                                                                            @PathVariable("startDate") Date startDate,

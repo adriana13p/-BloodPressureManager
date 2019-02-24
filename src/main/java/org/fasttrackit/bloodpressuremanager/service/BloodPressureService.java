@@ -129,8 +129,8 @@ public class BloodPressureService {
         bloodPressure.setNotesBP(bpDto.getNotesBPDto());
         //TODO intrebare: daca vreau sa fac update la un bloodPressure trebuie sa-i setez toate filed-urile?
         //  sau doar cele care vreau sa le schimb?
-        //  daca BloodPressure are si un field id si un obiect user trebuie sa leaici sau
-        //  acelea vor ramane neschimbate?
+        // ( daca BloodPressure are si un field id si un obiect user trebuie sa le setez aici sau
+        //  acelea vor ramane neschimbate?)
 
         BloodPressure savedObject = bloodPressureRepository.save(bloodPressure);
         //get the user
@@ -139,13 +139,13 @@ public class BloodPressureService {
     }
 
     public boolean checkBloodPressureIdExistInRepository(long idBP) {
-        //heck if the bloodPressure id exists in repository
+        //check if the bloodPressure id exists in repository
         boolean bloodPressureExists = false;
         //find a bloodPressure in the repository by userName
         BloodPressure bloodPressure = bloodPressureRepository.findOne(idBP);
         //check if the bloodPressure exists in repository
         if (bloodPressure == null) {
-            //if the userDetails id exists in repository set the flag to true
+            //if the bloodPressure id exists in repository set the flag to true
             bloodPressureExists = false;
         } else {
             bloodPressureExists = true;

@@ -12,12 +12,12 @@ public class PrintUtils {
         System.out.println("*********** Blood Pressures list ***************");
         for (int i = 0; i < userBloodPressuresList.size(); i++) {
             System.out.println("Blood Pressure measurement " + i + 1);
-            System.out.println(userBloodPressuresList.get(i).getIdBPDto());
-            System.out.println(userBloodPressuresList.get(i).getDateBPDto());
-            System.out.println(userBloodPressuresList.get(i).getDiastolicBPDto());
-            System.out.println(userBloodPressuresList.get(i).getSystolicBPDto());
-            System.out.println(userBloodPressuresList.get(i).getPulseBPDto());
-            System.out.println(userBloodPressuresList.get(i).getNotesBPDto());
+            System.out.print(userBloodPressuresList.get(i).getIdBPDto());
+            System.out.print("  "+userBloodPressuresList.get(i).getDateBPDto());
+            System.out.print("  "+userBloodPressuresList.get(i).getDiastolicBPDto());
+            System.out.print("  "+userBloodPressuresList.get(i).getSystolicBPDto());
+            System.out.print("  "+userBloodPressuresList.get(i).getPulseBPDto());
+            System.out.println("  "+userBloodPressuresList.get(i).getNotesBPDto());
             System.out.println("--------------");
         }
 

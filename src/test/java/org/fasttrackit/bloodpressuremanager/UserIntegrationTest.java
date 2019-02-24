@@ -91,4 +91,11 @@ public class UserIntegrationTest {
         userService.updateUser(5, userToUpdate);
         System.out.println("User was updated");
     }
+
+    @Test
+    public void deleteAUserWithDetailsAndBP() {
+        //delete a user by id
+        userService.deleteUserWithDetailsAndBP(4);
+        System.out.println("User was deleted");
+    }
 }

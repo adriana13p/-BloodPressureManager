@@ -1,14 +1,20 @@
 package org.fasttrackit.bloodpressuremanager.service;
 
+import org.fasttrackit.bloodpressuremanager.domain.BloodPressure;
 import org.fasttrackit.bloodpressuremanager.domain.User;
 import org.fasttrackit.bloodpressuremanager.domain.UserDetails;
+import org.fasttrackit.bloodpressuremanager.dto.BloodPressureDTO;
 import org.fasttrackit.bloodpressuremanager.dto.UserDTO;
 import org.fasttrackit.bloodpressuremanager.exception.NotFoundException;
+import org.fasttrackit.bloodpressuremanager.mapper.BloodPressureConverter;
 import org.fasttrackit.bloodpressuremanager.mapper.UserConverter;
+import org.fasttrackit.bloodpressuremanager.persistence.UserDetailsRepository;
 import org.fasttrackit.bloodpressuremanager.persistence.UserRepository;
 import org.fasttrackit.bloodpressuremanager.util.CheckUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Service for User
@@ -20,7 +26,14 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private UserConverter userConverter;
-
+    @Autowired
+    private UserDetailsRepository userDetailsRepository;
+    @Autowired
+    private UserDetailsService userDetailsService;
+    @Autowired
+    private BloodPressureService bloodPressureService;
+    @Autowired
+    private BloodPressureConverter bloodPressureConverter;
 
     public void saveUser(UserDTO userToSaveDto) throws Exception {
         //save a user in repository (user name and password must not be null)
@@ -125,5 +138,59 @@ public class UserService {
             userExists = true;
         }
         return userExists;
+    }
+    public boolean checkUerIdExistInRepository(long idUser) {
+        //check if the user id exists in repository
+        boolean userExists = false;
+        //find a user in the repository by userName
+        User user = userRepository.findOne(idUser);
+        //check if the user exists in repository
+        if (user == null) {
+            //if the user id exists in repository set the flag to true
+            userExists = false;
+        } else {
+            userExists = true;
+        }
+        return userExists;
+    }
+
+    public void deleteUserWithDetailsAndBP(long idUser) {
+        //delete a user from repository
+        //check user ID
+        boolean userExists = checkUerIdExistInRepository(idUser);
+        if (userExists == true) {
+            //if the user id exists in repository, delete the user
+            //get the user object from repository
+            UserDTO userDTO = getUserById(idUser);
+            //get user, userDetails and BloodPressures list
+            User userToDelete = userConverter.convertUserToObjectFull(userDTO);
+            UserDetails userDetails = userToDelete.getUserDetails();
+            List<BloodPressureDTO> userBPList = bloodPressureService.getBloodPressureListByUserId(idUser);
+            //delete bloodPressures
+            //TODO intrebare: testul trece dar nu sterge din tabelul blood_pressures => nu sterge nici userul
+            // pt ca: delete on table "users" violates foreign key constraint "fk_j2dgywb2kn6pnpbj52v8q9gj8" on table "blood_pressures"
+            try {
+                for (int i=0; i<userBPList.size();i++){
+                    long bpToDeleteId = userBPList.get(i).getIdBPDto();
+                    bloodPressureService.deleteBloodPressureById(bpToDeleteId);
+                }
+            } catch (Exception e) {
+                System.out.print("Error when deleting bloodPressure " + e);
+            }
+           //delete user
+            try {
+                userRepository.delete(userToDelete);
+            } catch (Exception e) {
+                System.out.print("Error when deleting user " + e);
+            }
+           //delete userDetails
+            try {
+                userDetailsRepository.delete(userDetails.getIdDetails());
+            } catch (Exception e) {
+                System.out.print("Error when deleting userDetails " + e);
+            }
+        } else {
+            System.out.println("User for id " + idUser + "does not exist");
+        }
     }
 }

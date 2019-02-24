@@ -43,4 +43,12 @@ public class UserDetailsIntegrationTest {
         UserDetailsDTO userDetailsDTO = userDetailsService.getUserDetailsById(1L);
         Assert.assertNotNull(userDetailsDTO);
     }
+
+    @Test
+    public void testDeleteUserDetails() {
+        //delete user details
+        userDetailsService.deleteUserDetails(8);
+        System.out.println("User Details was deleted");
+
+    }
 }

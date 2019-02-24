@@ -14,8 +14,7 @@ import org.springframework.boot.test.SpringApplicationContextLoader;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Tests for blood pressures
@@ -33,16 +32,16 @@ public class BloodPressureIntegrationTest {
     public void testSaveBloodPressure() {
         //save a blood pressure with all fields filled
         BloodPressureDTO bloodPressureToSave = new BloodPressureDTO();
+        bloodPressureToSave.setIdUserDto(4);
         bloodPressureToSave.setSystolicBPDto(118);
         bloodPressureToSave.setDiastolicBPDto(76);
         bloodPressureToSave.setPulseBPDto(73);
         bloodPressureToSave.setNotesBPDto("no medication");
 
         //format a string into date
-        Date dateToSave = DateUtils.formatStringToDate("19.02.2019 13:15");
+        Date dateToSave = DateUtils.formatStringToDate("20.02.2019 11:15");
         //set the date
         bloodPressureToSave.setDateBPDto(dateToSave);
-        bloodPressureToSave.setIdUserDto(2);
         bloodPressureService.saveBloodPressure(bloodPressureToSave);
     }
 
@@ -58,6 +57,11 @@ public class BloodPressureIntegrationTest {
     public void findUserBloodPressuresList() {
         //find a user's blood pressures list
         List<BloodPressureDTO> userBloodPressuresList = bloodPressureService.getBloodPressureListByUserId(2);
+
+        //TODO intrebare: cum sortez lista descrescator in functie de dateBPDto-ul din fiecare obiect din lista?
+        // (intr-un mod "elegant" fara sa parcurg lista intr-un for
+        // si sa iau obiect cu obiect sa le compar data si sa le pun intr-o alta lista)
+
         //print the lis with blood pressures
         PrintUtils.printBloodPressureDtoList(userBloodPressuresList);
 
@@ -83,6 +87,25 @@ public class BloodPressureIntegrationTest {
         //print the lis with blood pressures dto
         PrintUtils.printBloodPressureDtoList(userBloodPressuresList);
     }
+
+    @Test
+    public void updateABloodPressure() {
+        //update a blood pressure by id
+        BloodPressureDTO bpToSet =new BloodPressureDTO();
+        bpToSet.setIdBPDto(12);
+        bpToSet.setIdUserDto(2);
+        //format a string into date
+        Date dateToSave = DateUtils.formatStringToDate("19.02.2019 09:35:59");
+        bpToSet.setDateBPDto(dateToSave);
+        bpToSet.setSystolicBPDto(153);
+        bpToSet.setDiastolicBPDto(91);
+        bpToSet.setPulseBPDto(89);
+        bpToSet.setNotesBPDto("no medication");
+
+        bloodPressureService.updateBloodPressure(12, bpToSet);
+        System.out.println("BloodPressure was updated");
+    }
+
 
     @Test
     public void deleteABloodPressure() {
