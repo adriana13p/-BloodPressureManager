@@ -29,14 +29,14 @@ public class PrintUtils {
         //print a blood pressures dto
         System.out.println("*********** Blood Pressures ***************");
 
-            System.out.println("Blood Pressure measurement ");
-            System.out.println(bloodPressure.getIdBP());
-            System.out.println(bloodPressure.getDateBP());
-            System.out.println(bloodPressure.getDiastolicBP());
-            System.out.println(bloodPressure.getSystolicBP());
-            System.out.println(bloodPressure.getPulseBP());
-            System.out.println(bloodPressure.getNotesBP());
-            System.out.println("--------------");
+        System.out.println("Blood Pressure measurement ");
+        System.out.println(bloodPressure.getIdBP());
+        System.out.println(bloodPressure.getDateBP());
+        System.out.println(bloodPressure.getDiastolicBP());
+        System.out.println(bloodPressure.getSystolicBP());
+        System.out.println(bloodPressure.getPulseBP());
+        System.out.println(bloodPressure.getNotesBP());
+        System.out.println("--------------");
 
 
         System.out.println("*****************");

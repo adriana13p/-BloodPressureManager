@@ -25,14 +25,14 @@ public class UserService {
     public void saveUser(UserDTO userToSaveDto) throws Exception {
         //save a user in repository (user name and password must not be null)
         //check user's name is not null
-        CheckUtils.checkStringIsNotNull(userToSaveDto.getUserNameDto(),"User name");
+        CheckUtils.checkStringIsNotNull(userToSaveDto.getUserNameDto(), "User name");
 
         //check password is not null
-        CheckUtils.checkStringIsNotNull(userToSaveDto.getPasswordDto(),"Password");
+        CheckUtils.checkStringIsNotNull(userToSaveDto.getPasswordDto(), "Password");
 
         //check if the user name exists in repository
         boolean userExists = checkUserNameExistInRepository(userToSaveDto.getUserNameDto());
-        if (userExists==false){
+        if (userExists == false) {
             //save user
             User userObject = userConverter.convertUserToObjectFull(userToSaveDto);
             try {
@@ -40,26 +40,27 @@ public class UserService {
             } catch (Exception e) {
                 System.out.print("Error when saving user " + e);
             }
-        } else{
+        } else {
             System.out.println("A user with " + userToSaveDto.getUserNameDto() + "already exists");
 
-            throw new Exception("A user with " + userToSaveDto.getUserNameDto() +" already exists");
+            throw new Exception("A user with " + userToSaveDto.getUserNameDto() + " already exists");
         }
     }
+
     public void saveUserWithDetails(UserDTO userToSaveDto, UserDetails userDetails) throws Exception {
         //save a user with user details in repository (user name and password must not be null)
         //check user's name is not null
-        CheckUtils.checkStringIsNotNull(userToSaveDto.getUserNameDto(),"User name");
+        CheckUtils.checkStringIsNotNull(userToSaveDto.getUserNameDto(), "User name");
 
         //check password is not null
-        CheckUtils.checkStringIsNotNull(userToSaveDto.getPasswordDto(),"Password");
+        CheckUtils.checkStringIsNotNull(userToSaveDto.getPasswordDto(), "Password");
 
         //TODO intrebare: e ok cum am facut verificarea daca userul exista deja in baza de date?
         // sau ar trebui sa o fac in alt mod verificarea?
         // e ok cum arunc exceptia in cazul in care exista deja userul sau ar trebui sa schimb ceva?
         //check if the user name exists in repository
         boolean userExists = checkUserNameExistInRepository(userToSaveDto.getUserNameDto());
-        if (userExists==false){
+        if (userExists == false) {
             //if userName does not exist save user with details
             User userObject = userConverter.convertUserToObjectFull(userToSaveDto);
             userObject.setUserDetails(userDetails);
@@ -69,11 +70,11 @@ public class UserService {
             } catch (Exception e) {
                 System.out.print("Error when saving user " + e);
             }
-        } else{
+        } else {
             //if userName already exists throw an exception
             System.out.println("A user with " + userToSaveDto.getUserNameDto() + "already exists");
 
-            throw new Exception("A user with " + userToSaveDto.getUserNameDto() +" already exists");
+            throw new Exception("A user with " + userToSaveDto.getUserNameDto() + " already exists");
         }
 
     }
@@ -103,7 +104,7 @@ public class UserService {
     }
 
 
-    public UserDTO  updateUser(long id, UserDTO dto) {
+    public UserDTO updateUser(long id, UserDTO dto) {
         //update a user by id
         User user = userRepository.findOne(id);
         user.setUserName(dto.getUserNameDto());

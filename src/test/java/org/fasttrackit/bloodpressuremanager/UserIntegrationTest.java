@@ -83,7 +83,7 @@ public class UserIntegrationTest {
     }
 
     @Test
-    public void updateAUser(){
+    public void updateAUser() {
         //update a user
         UserDTO userToUpdate = new UserDTO();
         userToUpdate.setUserNameDto("Laura");

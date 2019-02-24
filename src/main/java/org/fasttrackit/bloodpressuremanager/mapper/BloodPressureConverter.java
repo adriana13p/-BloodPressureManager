@@ -30,6 +30,7 @@ public class BloodPressureConverter {
 
         return bloodPressure;
     }
+
     public BloodPressureDTO convertBloodPressureToDTO(BloodPressure bloodPressure, User userToSave) {
         //convert a bloodPressure object to dto ()
         BloodPressureDTO bloodPressureDTO = new BloodPressureDTO();

@@ -85,7 +85,7 @@ public class BloodPressureIntegrationTest {
     }
 
     @Test
-    public void deleteABloodPressure(){
+    public void deleteABloodPressure() {
         //delete a blood pressure by id
         bloodPressureService.deleteBloodPressureById(13);
         System.out.println("BloodPressure was deleted");

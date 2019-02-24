@@ -1,6 +1,5 @@
 package org.fasttrackit.bloodpressuremanager;
 
-import org.fasttrackit.bloodpressuremanager.domain.UserDetails;
 import org.fasttrackit.bloodpressuremanager.dto.UserDetailsDTO;
 import org.fasttrackit.bloodpressuremanager.service.UserDetailsService;
 import org.junit.Assert;

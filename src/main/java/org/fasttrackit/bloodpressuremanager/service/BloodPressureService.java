@@ -3,12 +3,10 @@ package org.fasttrackit.bloodpressuremanager.service;
 import org.fasttrackit.bloodpressuremanager.domain.BloodPressure;
 import org.fasttrackit.bloodpressuremanager.domain.User;
 import org.fasttrackit.bloodpressuremanager.dto.BloodPressureDTO;
-import org.fasttrackit.bloodpressuremanager.dto.UserDTO;
 import org.fasttrackit.bloodpressuremanager.exception.NotFoundException;
 import org.fasttrackit.bloodpressuremanager.mapper.BloodPressureConverter;
 import org.fasttrackit.bloodpressuremanager.persistence.BloodPressureRepository;
 import org.fasttrackit.bloodpressuremanager.persistence.UserRepository;
-import org.fasttrackit.bloodpressuremanager.util.CheckUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,7 +28,7 @@ public class BloodPressureService {
     private BloodPressureConverter bloodPressureConverter;
 
 
-    public BloodPressure getBloodPressureById(long idBloodPressure) {
+    public BloodPressureDTO getBloodPressureById(long idBloodPressure) {
         //find a BloodPressure in the repository by idBloodPressure
         BloodPressure bloodPressure = bloodPressureRepository.findOne(idBloodPressure);
         //check if the BloodPressure id exists in repository
@@ -38,7 +36,11 @@ public class BloodPressureService {
             //if the id does not exist in repository, throw an exception
             throw new NotFoundException("" + idBloodPressure);
         }
-        return bloodPressure;
+        //getUser
+        User user = userRepository.findOne(idBloodPressure);
+        //convert user to dto
+        BloodPressureDTO bloodPressureDTO = bloodPressureConverter.convertBloodPressureToDTO(bloodPressure, user);
+        return bloodPressureDTO;
     }
 
     public List<BloodPressureDTO> getBloodPressureListByUserId(long idUser) {
@@ -72,7 +74,7 @@ public class BloodPressureService {
     public void saveBloodPressure(BloodPressureDTO bloodPressureDto) {
         //save a BloodPressure in repository ()
         //check user id is not null
-      //  CheckUtils.checkLongElementIsNotNull(bloodPressureDto.getIdUserDto(), "User id");
+        //  CheckUtils.checkLongElementIsNotNull(bloodPressureDto.getIdUserDto(), "User id");
         //check that at least one field is not empty
         if ((bloodPressureDto.getSystolicBPDto() == null) ||
                 (bloodPressureDto.getDiastolicBPDto() == null) ||
@@ -100,8 +102,13 @@ public class BloodPressureService {
         if (bloodPressureExists == true) {
             //if the userDetails id exists in repository, delete the user details
             //get the bloodPressure object from repository
-            BloodPressure bloodPressureToDelete = getBloodPressureById(bloodPressureId);
+            BloodPressureDTO bloodPressureDTO = getBloodPressureById(bloodPressureId);
+            //getUser
+            User user = userRepository.findOne(bloodPressureId);
             //delete blood pressure
+            //TODO intrebare: ar trebui sa pun cautarea de user " User user = userRepository.findOne(bloodPressureId)"
+            // ininteriorul convertorului pt bloodPressure ?
+            BloodPressure bloodPressureToDelete = bloodPressureConverter.convertBloodPressureToObject(bloodPressureDTO, user);
             try {
                 bloodPressureRepository.delete(bloodPressureToDelete);
             } catch (Exception e) {
@@ -126,7 +133,7 @@ public class BloodPressureService {
         //  acelea vor ramane neschimbate?
 
         BloodPressure savedObject = bloodPressureRepository.save(bloodPressure);
-       //get the user
+        //get the user
         User user = userRepository.findOne(bpDto.getIdUserDto());
         return bloodPressureConverter.convertBloodPressureToDTO(savedObject, user);
     }
@@ -140,7 +147,7 @@ public class BloodPressureService {
         if (bloodPressure == null) {
             //if the userDetails id exists in repository set the flag to true
             bloodPressureExists = false;
-        }else{
+        } else {
             bloodPressureExists = true;
         }
         return bloodPressureExists;

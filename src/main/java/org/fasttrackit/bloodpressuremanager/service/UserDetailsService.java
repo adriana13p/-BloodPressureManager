@@ -3,7 +3,6 @@ package org.fasttrackit.bloodpressuremanager.service;
 import org.fasttrackit.bloodpressuremanager.domain.User;
 import org.fasttrackit.bloodpressuremanager.domain.UserDetails;
 import org.fasttrackit.bloodpressuremanager.dto.UserDetailsDTO;
-import org.fasttrackit.bloodpressuremanager.exception.NotFoundException;
 import org.fasttrackit.bloodpressuremanager.mapper.UserDetailsConverter;
 import org.fasttrackit.bloodpressuremanager.persistence.UserDetailsRepository;
 import org.fasttrackit.bloodpressuremanager.persistence.UserRepository;
@@ -43,19 +42,25 @@ public class UserDetailsService {
         }
     }
 
-    public void deleteUserDetails(UserDetails userDetails) {
+    public void deleteUserDetails(long idUserDetails) {
         //delete a userDetails from repository
         //check userDetails ID
-        boolean userDetailsExists = checkUserDetailsIdExistInRepository(userDetails.getIdDetails());
+        boolean userDetailsExists = checkUserDetailsIdExistInRepository(idUserDetails);
         if (userDetailsExists == true) {
             //if the userDetails id exists in repository, delete the user details
+            UserDetailsDTO userDetailsDTO = getUserDetailsById(idUserDetails);
+            //getUser
+            User user = userRepository.findOne(idUserDetails);
+            //convertTo object
+            UserDetails userDetailsToDelete = userDetailsConverter.convertToObject(userDetailsDTO, user);
+            //delete userDetails
             try {
-                userDetailsRepository.delete(userDetails);
+                userDetailsRepository.delete(userDetailsToDelete);
             } catch (Exception e) {
                 System.out.print("Error when deleting userDetails " + e);
             }
         } else {
-            System.out.println("User details for id " + userDetails.getIdDetails() + "does not exist");
+            System.out.println("User details for id " + idUserDetails + "does not exist");
         }
     }
 

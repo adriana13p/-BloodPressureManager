@@ -15,14 +15,19 @@ public class UserController {
     private UserService userService;
 
 
-    @RequestMapping(path = "/user/{id}", method = RequestMethod.GET)
+    @RequestMapping(path = "/getUserById/{id}", method = RequestMethod.GET)
     public UserDTO geUserById(@PathVariable("id") long id) {
         //get a user by id
         return userService.getUserById(id);
     }
 
+    @RequestMapping(path = "/getUserByName/{userName}", method = RequestMethod.GET)
+    public UserDTO geUserByUserName(@PathVariable("userName") String userName) {
+        //get a user by id
+        return userService.getUserByUserName(userName);
+    }
 
-    @RequestMapping(path = "/user", method = RequestMethod.POST)
+    @RequestMapping(path = "/saveUser", method = RequestMethod.POST)
     public void saveUser(@RequestBody UserDTO user) throws Exception {
         LOGGER.info("user >> {}", user.getUserNameDto());
         //save a user
@@ -30,7 +35,7 @@ public class UserController {
 
     }
 
-    @RequestMapping(path = "/user/{id}", method = RequestMethod.PUT)
+    @RequestMapping(path = "/updateUser/{id}", method = RequestMethod.PUT)
     public UserDTO updateUser(@PathVariable long id, @RequestBody UserDTO dto) {
         //update a user
         return userService.updateUser(id, dto);

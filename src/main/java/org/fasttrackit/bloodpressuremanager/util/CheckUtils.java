@@ -6,7 +6,7 @@ public class CheckUtils {
         //check if a sting is null
         if (stringToCheck == null) {
             //if the string is null throw an exception
-            throw new IllegalArgumentException(element+" can NOT be null");
+            throw new IllegalArgumentException(element + " can NOT be null");
         }
     }
 
@@ -14,7 +14,7 @@ public class CheckUtils {
         //check if a long element is null
         if (longElementToCheck == Long.parseLong(null)) {
             //if the element is null throw an exception
-            throw new IllegalArgumentException(element+" can NOT be null");
+            throw new IllegalArgumentException(element + " can NOT be null");
         }
     }
 }

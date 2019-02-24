@@ -45,7 +45,8 @@ public class UserDetails implements Serializable {
     @OneToOne(mappedBy = "userDetails") //one user to one user details
     //"users" table is the one that contains the foreign key to "users_details" table
     //("users_details_id_fk column from "users" table is the foreign key)
-    private @NotNull User user;
+    private @NotNull
+    User user;
 
 
     public long getIdDetails() {

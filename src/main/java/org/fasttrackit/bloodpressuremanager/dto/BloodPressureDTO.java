@@ -13,7 +13,6 @@ public class BloodPressureDTO {
     private long idUserDto;
 
 
-
     public long getIdBPDto() {
         return idBPDto;
     }

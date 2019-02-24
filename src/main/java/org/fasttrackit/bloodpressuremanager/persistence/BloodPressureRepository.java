@@ -11,6 +11,7 @@ public interface BloodPressureRepository
         PagingAndSortingRepository<BloodPressure, Long> {
 
     BloodPressure findByidBP(long idBP);
+
     //find all blood pressures for a specific user
     List<BloodPressure> findByUserIdUser(long idUser);
 
