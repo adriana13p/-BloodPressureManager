@@ -1,6 +1,5 @@
 package org.fasttrackit.bloodpressuremanager.util;
 
-import org.fasttrackit.bloodpressuremanager.domain.BloodPressure;
 import org.fasttrackit.bloodpressuremanager.dto.BloodPressureDTO;
 import org.fasttrackit.bloodpressuremanager.dto.UserDTO;
 
