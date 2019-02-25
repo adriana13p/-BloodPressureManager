@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -63,7 +64,17 @@ public class BloodPressureService {
 
     public List<BloodPressureDTO> getBloodPressureListByUserAndDateBetween(long idUser, Date startDate, Date endDate) {
         //find a BloodPressure in the repository by idBloodPressure and date between
-        List<BloodPressure> usersBloodPressures = bloodPressureRepository.findByUserIdUserAndDateBPBetween(idUser, startDate, endDate);
+       // List<BloodPressure> usersBloodPressures = bloodPressureRepository.findByUserIdUserAndDateBPBetween(idUser, startDate, endDate);
+        List<BloodPressure> usersBloodPressures = bloodPressureRepository.findByUserIdUserAndDateBPBetweenOrderByDateBPDesc(idUser, startDate, endDate);
+
+      /*//order the list descending
+      usersBloodPressures.sort(new Comparator<BloodPressure>() {
+            @Override
+            public int compare(BloodPressure o1, BloodPressure o2) {
+                return -o1.getDateBP().compareTo(o2.getDateBP());
+            }
+        });*/
+
         //convert usersBloodPressures to dto
         List<BloodPressureDTO> usersBloodPressuresDto = bloodPressureConverter.convertBloodPressureListToDto(usersBloodPressures);
 

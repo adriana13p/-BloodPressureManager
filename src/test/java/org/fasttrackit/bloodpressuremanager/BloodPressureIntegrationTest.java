@@ -57,12 +57,8 @@ public class BloodPressureIntegrationTest {
     public void findUserBloodPressuresList() {
         //find a user's blood pressures list
         List<BloodPressureDTO> userBloodPressuresList = bloodPressureService.getBloodPressureListByUserId(2);
-
-        //TODO intrebare: cum sortez lista descrescator in functie de dateBPDto-ul din fiecare obiect din lista?
-        // (intr-un mod "elegant" fara sa parcurg lista intr-un for
-        // si sa iau obiect cu obiect sa le compar data si sa le pun intr-o alta lista)
-
-        //print the lis with blood pressures
+        
+        //print the list with blood pressures
         PrintUtils.printBloodPressureDtoList(userBloodPressuresList);
 
     }

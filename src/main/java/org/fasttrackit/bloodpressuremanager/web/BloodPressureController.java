@@ -18,10 +18,16 @@ public class BloodPressureController {
     private BloodPressureService bloodPressureService;
 
 
-    @RequestMapping(path = "/bloodPressure/{id}", method = RequestMethod.GET)
-    public BloodPressureDTO geBloodPressureById(@PathVariable("id") long id) {
+    @RequestMapping(path = "/bloodPressure/{idBP}", method = RequestMethod.GET)
+    public BloodPressureDTO geBloodPressureById(@PathVariable("idBP") long idBP) {
         //get a bloodPressure by id
-        return bloodPressureService.getBloodPressureById(id);
+        return bloodPressureService.getBloodPressureById(idBP);
+    }
+
+    @RequestMapping(path = "/bloodPressureByUserId/{idUser}", method = RequestMethod.GET)
+    public List<BloodPressureDTO> geBloodPressureByUserId(@PathVariable("idUser") long idUser) {
+        //get a bloodPressure list by User id
+        return bloodPressureService.getBloodPressureListByUserId(idUser);
     }
 
     @RequestMapping(path = "/bloodPressureByDate/{idUser}/{dateForBP}", method = RequestMethod.GET)
@@ -50,7 +56,7 @@ public class BloodPressureController {
 
     @RequestMapping(path = "/updateBloodPressure/{id}", method = RequestMethod.PUT)
     public BloodPressureDTO updateBloodPressure(@PathVariable long id, @RequestBody BloodPressureDTO bloodPressureDTO) {
-        //update a user
+        //update a bloodPressure
         return bloodPressureService.updateBloodPressure(id, bloodPressureDTO);
     }
 
