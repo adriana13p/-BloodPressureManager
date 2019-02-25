@@ -13,15 +13,15 @@ public interface BloodPressureRepository
     BloodPressure findByidBP(long idBP);
 
     //find all blood pressures for a specific user
-    List<BloodPressure> findByUserIdUser(long idUser);
+    List<BloodPressure> findByUserIdUserOrderByDateBPDesc(long idUser);
 
-    //find all blood pressures for a specific user and for a specific date
-    List<BloodPressure> findByUserIdUserAndDateBP(long idUser, Date dateBP);
+    //find all blood pressures ordered descending by date for a specific user and for a specific date
+    List<BloodPressure> findByUserIdUserAndDateBPOrderByDateBPDesc(long idUser, Date dateBP);
 
-    //find all blood pressures for a specific user and for a time period
+    //find all blood pressures ordered descending by date for a specific user and for a time period
     List<BloodPressure> findByUserIdUserAndDateBPBetween(long idUser, Date dateBPStart, Date dateBPEnd);
 
-    //find all blood pressures ordered descending  for a specific user and for a time period
+    //find all blood pressures ordered descending by date for a specific user and for a time period
     List<BloodPressure> findByUserIdUserAndDateBPBetweenOrderByDateBPDesc(long idUser, Date dateBPStart, Date dateBPEnd);
 
 }

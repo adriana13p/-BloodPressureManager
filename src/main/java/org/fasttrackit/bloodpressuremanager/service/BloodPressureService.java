@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -46,7 +45,7 @@ public class BloodPressureService {
 
     public List<BloodPressureDTO> getBloodPressureListByUserId(long idUser) {
         //find a BloodPressure in the repository by idBloodPressure
-        List<BloodPressure> usersBloodPressures = bloodPressureRepository.findByUserIdUser(idUser);
+        List<BloodPressure> usersBloodPressures = bloodPressureRepository.findByUserIdUserOrderByDateBPDesc(idUser);
         //convert usersBloodPressures to dto
         List<BloodPressureDTO> usersBloodPressuresDto = bloodPressureConverter.convertBloodPressureListToDto(usersBloodPressures);
 
@@ -55,7 +54,7 @@ public class BloodPressureService {
 
     public List<BloodPressureDTO> getBloodPressureListByUserAndDate(long idUser, Date dateForBP) {
         //find a BloodPressure in the repository by idBloodPressure ans date
-        List<BloodPressure> usersBloodPressures = bloodPressureRepository.findByUserIdUserAndDateBP(idUser, dateForBP);
+        List<BloodPressure> usersBloodPressures = bloodPressureRepository.findByUserIdUserAndDateBPOrderByDateBPDesc(idUser, dateForBP);
         //convert usersBloodPressures to dto
         List<BloodPressureDTO> usersBloodPressuresDto = bloodPressureConverter.convertBloodPressureListToDto(usersBloodPressures);
 
