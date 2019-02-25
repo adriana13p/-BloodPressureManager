@@ -20,7 +20,11 @@ public class UserController {
         //get a user by id
         return userService.getUserById(id);
     }
-
+    @RequestMapping(path = "/getUserByIdWithPass/{id}", method = RequestMethod.GET)
+    public UserDTO geUserByIdWithPass(@PathVariable("id") long id) {
+        //get a user by id
+        return userService.getUserWithPasswordById(id);
+    }
     @RequestMapping(path = "/getUserByName/{userName}", method = RequestMethod.GET)
     public UserDTO geUserByUserName(@PathVariable("userName") String userName) {
         //get a user by id

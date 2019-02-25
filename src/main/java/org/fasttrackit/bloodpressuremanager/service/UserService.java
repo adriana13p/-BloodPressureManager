@@ -103,6 +103,17 @@ public class UserService {
         return userDto;
     }
 
+    public UserDTO getUserWithPasswordById(long id) {
+        //search user by id in repository
+        User user = userRepository.findOne(id);
+        if (user == null) {
+            throw new IllegalArgumentException("The id is not valid.");
+        }
+        //convert user to dto
+        UserDTO userDto = userConverter.convertUserToDTOWithPassword(user);
+        return userDto;
+    }
+
     public UserDTO getUserByUserName(String userName) {
         //find a user in the repository by userName
         User user = userRepository.findByUserName(userName);
