@@ -57,7 +57,7 @@ public class BloodPressureIntegrationTest {
     public void findUserBloodPressuresList() {
         //find a user's blood pressures list
         List<BloodPressureDTO> userBloodPressuresList = bloodPressureService.getBloodPressureListByUserId(2);
-        
+
         //print the list with blood pressures
         PrintUtils.printBloodPressureDtoList(userBloodPressuresList);
 
