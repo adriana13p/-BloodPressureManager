@@ -181,7 +181,7 @@ public class UserService {
             // pt ca: delete on table "users" violates foreign key constraint "fk_j2dgywb2kn6pnpbj52v8q9gj8" on table "blood_pressures"
             try {
                 for (int i=0; i<userBPList.size();i++){
-                    long bpToDeleteId = userBPList.get(i).getIdBPDto();
+                    long bpToDeleteId = userBPList.get(i).getIdBP();
                     bloodPressureService.deleteBloodPressureById(bpToDeleteId);
                 }
             } catch (Exception e) {

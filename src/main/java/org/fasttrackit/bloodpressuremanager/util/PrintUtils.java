@@ -12,12 +12,12 @@ public class PrintUtils {
         System.out.println("*********** Blood Pressures list ***************");
         for (int i = 0; i < userBloodPressuresList.size(); i++) {
             System.out.println("Blood Pressure measurement " + i + 1);
-            System.out.print(userBloodPressuresList.get(i).getIdBPDto());
-            System.out.print("  "+userBloodPressuresList.get(i).getDateBPDto());
-            System.out.print("  "+userBloodPressuresList.get(i).getDiastolicBPDto());
-            System.out.print("  "+userBloodPressuresList.get(i).getSystolicBPDto());
-            System.out.print("  "+userBloodPressuresList.get(i).getPulseBPDto());
-            System.out.println("  "+userBloodPressuresList.get(i).getNotesBPDto());
+            System.out.print(userBloodPressuresList.get(i).getIdBP());
+            System.out.print("  "+userBloodPressuresList.get(i).getDateBP());
+            System.out.print("  "+userBloodPressuresList.get(i).getDiastolicBP());
+            System.out.print("  "+userBloodPressuresList.get(i).getSystolicBP());
+            System.out.print("  "+userBloodPressuresList.get(i).getPulseBP());
+            System.out.println("  "+userBloodPressuresList.get(i).getNotesBP());
             System.out.println("--------------");
         }
 
@@ -29,12 +29,12 @@ public class PrintUtils {
         System.out.println("*********** Blood Pressures ***************");
 
         System.out.println("Blood Pressure measurement ");
-        System.out.println(bloodPressureToPrint.getIdBPDto());
-        System.out.println(bloodPressureToPrint.getDateBPDto());
-        System.out.println(bloodPressureToPrint.getDiastolicBPDto());
-        System.out.println(bloodPressureToPrint.getSystolicBPDto());
-        System.out.println(bloodPressureToPrint.getPulseBPDto());
-        System.out.println(bloodPressureToPrint.getNotesBPDto());
+        System.out.println(bloodPressureToPrint.getIdBP());
+        System.out.println(bloodPressureToPrint.getDateBP());
+        System.out.println(bloodPressureToPrint.getDiastolicBP());
+        System.out.println(bloodPressureToPrint.getSystolicBP());
+        System.out.println(bloodPressureToPrint.getPulseBP());
+        System.out.println(bloodPressureToPrint.getNotesBP());
         System.out.println("--------------");
 
         System.out.println("*****************");

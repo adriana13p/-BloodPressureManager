@@ -4,81 +4,81 @@ import java.util.Date;
 
 public class BloodPressureDTO {
 
-    private long idBPDto;
-    private Integer systolicBPDto; //systolic blood pressure (the high value)
-    private Integer diastolicBPDto; //diastolic blood pressure (the low value)
-    private Integer pulseBPDto;
-    private Date dateBPDto;
-    private String notesBPDto;
-    private long idUserDto;
+    private long idBP;
+    private Integer systolicBP; //systolic blood pressure (the high value)
+    private Integer diastolicBP; //diastolic blood pressure (the low value)
+    private Integer pulseBP;
+    private Date dateBP;
+    private String notesBP;
+    private long idUser;
 
 
-    public long getIdBPDto() {
-        return idBPDto;
+    public long getIdBP() {
+        return idBP;
     }
 
-    public void setIdBPDto(long idBPDto) {
-        this.idBPDto = idBPDto;
+    public void setIdBP(long idBP) {
+        this.idBP = idBP;
     }
 
-    public Integer getSystolicBPDto() {
-        return systolicBPDto;
+    public Integer getSystolicBP() {
+        return systolicBP;
     }
 
-    public void setSystolicBPDto(Integer systolicBPDto) {
-        this.systolicBPDto = systolicBPDto;
+    public void setSystolicBP(Integer systolicBP) {
+        this.systolicBP = systolicBP;
     }
 
-    public Integer getDiastolicBPDto() {
-        return diastolicBPDto;
+    public Integer getDiastolicBP() {
+        return diastolicBP;
     }
 
-    public void setDiastolicBPDto(Integer diastolicBPDto) {
-        this.diastolicBPDto = diastolicBPDto;
+    public void setDiastolicBP(Integer diastolicBP) {
+        this.diastolicBP = diastolicBP;
     }
 
-    public Integer getPulseBPDto() {
-        return pulseBPDto;
+    public Integer getPulseBP() {
+        return pulseBP;
     }
 
-    public void setPulseBPDto(Integer pulseBPDto) {
-        this.pulseBPDto = pulseBPDto;
+    public void setPulseBP(Integer pulseBP) {
+        this.pulseBP = pulseBP;
     }
 
-    public Date getDateBPDto() {
-        return dateBPDto;
+    public Date getDateBP() {
+        return dateBP;
     }
 
-    public void setDateBPDto(Date dateBPDto) {
-        this.dateBPDto = dateBPDto;
+    public void setDateBP(Date dateBP) {
+        this.dateBP = dateBP;
     }
 
-    public String getNotesBPDto() {
-        return notesBPDto;
+    public String getNotesBP() {
+        return notesBP;
     }
 
-    public void setNotesBPDto(String notesBPDto) {
-        this.notesBPDto = notesBPDto;
+    public void setNotesBP(String notesBP) {
+        this.notesBP = notesBP;
     }
 
-    public long getIdUserDto() {
-        return idUserDto;
+    public long getIdUser() {
+        return idUser;
     }
 
-    public void setIdUserDto(long idUserDto) {
-        this.idUserDto = idUserDto;
+    public void setIdUser(long idUser) {
+        this.idUser = idUser;
     }
 
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("BloodPressureDTO{");
-        sb.append("idBPDto=").append(idBPDto);
-        sb.append(", systolicBPDto=").append(systolicBPDto);
-        sb.append(", diastolicBPDto=").append(diastolicBPDto);
-        sb.append(", pulseBPDto=").append(pulseBPDto);
-        sb.append(", dateBPDto=").append(dateBPDto);
-        sb.append(", notesBPDto='").append(notesBPDto).append('\'');
-        sb.append(", idUserDto=").append(idUserDto);
+        sb.append("idBP=").append(idBP);
+        sb.append(", systolicBP=").append(systolicBP);
+        sb.append(", diastolicBP=").append(diastolicBP);
+        sb.append(", pulseBP=").append(pulseBP);
+        sb.append(", dateBP=").append(dateBP);
+        sb.append(", notesBP='").append(notesBP).append('\'');
+        sb.append(", idUser=").append(idUser);
         sb.append('}');
         return sb.toString();
     }

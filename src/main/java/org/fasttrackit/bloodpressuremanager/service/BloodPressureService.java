@@ -85,16 +85,16 @@ public class BloodPressureService {
         //check user id is not null
         //  CheckUtils.checkLongElementIsNotNull(bloodPressureDto.getIdUser(), "User id");
         //check that at least one field is not empty
-        if ((bloodPressureDto.getSystolicBPDto() == null) ||
-                (bloodPressureDto.getDiastolicBPDto() == null) ||
-                (bloodPressureDto.getNotesBPDto() == null) ||
-                (bloodPressureDto.getDateBPDto() == null) ||
-                (bloodPressureDto.getNotesBPDto() == null)) {
+        if ((bloodPressureDto.getSystolicBP() == null) ||
+                (bloodPressureDto.getDiastolicBP() == null) ||
+                (bloodPressureDto.getNotesBP() == null) ||
+                (bloodPressureDto.getDateBP() == null) ||
+                (bloodPressureDto.getNotesBP() == null)) {
             //if sbp is null throw an exception
             throw new IllegalArgumentException("All fields can't be empty");
         }
 
-        User user = userRepository.findOne(bloodPressureDto.getIdUserDto());
+        User user = userRepository.findOne(bloodPressureDto.getIdUser());
         BloodPressure bloodPressureObject = bloodPressureConverter.convertBloodPressureToObject(bloodPressureDto, user);
         //save blood pressure
         try {
@@ -113,7 +113,7 @@ public class BloodPressureService {
             //get the bloodPressure object from repository
             BloodPressureDTO bloodPressureDTO = getBloodPressureById(bloodPressureId);
             //getUser
-            User user = userRepository.findOne(bloodPressureDTO.getIdUserDto());
+            User user = userRepository.findOne(bloodPressureDTO.getIdUser());
             //delete blood pressure
             //TODO intrebare: ar trebui sa pun cautarea de user " User user = userRepository.findOne(bloodPressureId)"
             // ininteriorul convertorului pt bloodPressure ?
@@ -131,11 +131,11 @@ public class BloodPressureService {
     public BloodPressureDTO updateBloodPressure(long id, BloodPressureDTO bpDto) {
         //update a user by id
         BloodPressure bloodPressure = bloodPressureRepository.findOne(id);
-        bloodPressure.setSystolicBP(bpDto.getSystolicBPDto());
-        bloodPressure.setDiastolicBP(bpDto.getDiastolicBPDto());
-        bloodPressure.setPulseBP(bpDto.getPulseBPDto());
-        bloodPressure.setDateBP(bpDto.getDateBPDto());
-        bloodPressure.setNotesBP(bpDto.getNotesBPDto());
+        bloodPressure.setSystolicBP(bpDto.getSystolicBP());
+        bloodPressure.setDiastolicBP(bpDto.getDiastolicBP());
+        bloodPressure.setPulseBP(bpDto.getPulseBP());
+        bloodPressure.setDateBP(bpDto.getDateBP());
+        bloodPressure.setNotesBP(bpDto.getNotesBP());
         //TODO intrebare: daca vreau sa fac update la un bloodPressure trebuie sa-i setez toate filed-urile?
         //  sau doar cele care vreau sa le schimb?
         // ( daca BloodPressure are si un field id si un obiect user trebuie sa le setez aici sau

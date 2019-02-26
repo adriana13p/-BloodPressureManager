@@ -1,6 +1,5 @@
 package org.fasttrackit.bloodpressuremanager;
 
-import org.fasttrackit.bloodpressuremanager.domain.BloodPressure;
 import org.fasttrackit.bloodpressuremanager.dto.BloodPressureDTO;
 import org.fasttrackit.bloodpressuremanager.service.BloodPressureService;
 import org.fasttrackit.bloodpressuremanager.util.DateUtils;
@@ -32,16 +31,16 @@ public class BloodPressureIntegrationTest {
     public void testSaveBloodPressure() {
         //save a blood pressure with all fields filled
         BloodPressureDTO bloodPressureToSave = new BloodPressureDTO();
-        bloodPressureToSave.setIdUserDto(4);
-        bloodPressureToSave.setSystolicBPDto(118);
-        bloodPressureToSave.setDiastolicBPDto(76);
-        bloodPressureToSave.setPulseBPDto(73);
-        bloodPressureToSave.setNotesBPDto("no medication");
+        bloodPressureToSave.setIdUser(4);
+        bloodPressureToSave.setSystolicBP(118);
+        bloodPressureToSave.setDiastolicBP(76);
+        bloodPressureToSave.setPulseBP(73);
+        bloodPressureToSave.setNotesBP("no medication");
 
         //format a string into date
         Date dateToSave = DateUtils.formatStringToDate("20.02.2019 11:15");
         //set the date
-        bloodPressureToSave.setDateBPDto(dateToSave);
+        bloodPressureToSave.setDateBP(dateToSave);
         bloodPressureService.saveBloodPressure(bloodPressureToSave);
     }
 
@@ -88,15 +87,15 @@ public class BloodPressureIntegrationTest {
     public void updateABloodPressure() {
         //update a blood pressure by id
         BloodPressureDTO bpToSet =new BloodPressureDTO();
-        bpToSet.setIdBPDto(12);
-        bpToSet.setIdUserDto(2);
+        bpToSet.setIdBP(12);
+        bpToSet.setIdUser(2);
         //format a string into date
         Date dateToSave = DateUtils.formatStringToDate("19.02.2019 09:35:59");
-        bpToSet.setDateBPDto(dateToSave);
-        bpToSet.setSystolicBPDto(153);
-        bpToSet.setDiastolicBPDto(91);
-        bpToSet.setPulseBPDto(89);
-        bpToSet.setNotesBPDto("no medication");
+        bpToSet.setDateBP(dateToSave);
+        bpToSet.setSystolicBP(153);
+        bpToSet.setDiastolicBP(91);
+        bpToSet.setPulseBP(89);
+        bpToSet.setNotesBP("no medication");
 
         bloodPressureService.updateBloodPressure(12, bpToSet);
         System.out.println("BloodPressure was updated");

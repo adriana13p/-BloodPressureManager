@@ -19,12 +19,12 @@ public class BloodPressureConverter {
 
         BloodPressure bloodPressure = new BloodPressure();
 
-        bloodPressure.setIdBP(bloodPressureDTO.getIdBPDto());
-        bloodPressure.setSystolicBP(bloodPressureDTO.getSystolicBPDto());
-        bloodPressure.setDiastolicBP(bloodPressureDTO.getDiastolicBPDto());
-        bloodPressure.setPulseBP(bloodPressureDTO.getPulseBPDto());
-        bloodPressure.setDateBP(bloodPressureDTO.getDateBPDto());
-        bloodPressure.setNotesBP(bloodPressureDTO.getNotesBPDto());
+        bloodPressure.setIdBP(bloodPressureDTO.getIdBP());
+        bloodPressure.setSystolicBP(bloodPressureDTO.getSystolicBP());
+        bloodPressure.setDiastolicBP(bloodPressureDTO.getDiastolicBP());
+        bloodPressure.setPulseBP(bloodPressureDTO.getPulseBP());
+        bloodPressure.setDateBP(bloodPressureDTO.getDateBP());
+        bloodPressure.setNotesBP(bloodPressureDTO.getNotesBP());
         //set user id fk
         bloodPressure.setUser(userToSave);
 
@@ -35,14 +35,14 @@ public class BloodPressureConverter {
         //convert a bloodPressure object to dto ()
         BloodPressureDTO bloodPressureDTO = new BloodPressureDTO();
 
-        bloodPressureDTO.setIdBPDto(bloodPressure.getIdBP());
-        bloodPressureDTO.setSystolicBPDto(bloodPressure.getSystolicBP());
-        bloodPressureDTO.setDiastolicBPDto(bloodPressure.getDiastolicBP());
-        bloodPressureDTO.setPulseBPDto(bloodPressure.getPulseBP());
-        bloodPressureDTO.setDateBPDto(bloodPressure.getDateBP());
-        bloodPressureDTO.setNotesBPDto(bloodPressure.getNotesBP());
+        bloodPressureDTO.setIdBP(bloodPressure.getIdBP());
+        bloodPressureDTO.setSystolicBP(bloodPressure.getSystolicBP());
+        bloodPressureDTO.setDiastolicBP(bloodPressure.getDiastolicBP());
+        bloodPressureDTO.setPulseBP(bloodPressure.getPulseBP());
+        bloodPressureDTO.setDateBP(bloodPressure.getDateBP());
+        bloodPressureDTO.setNotesBP(bloodPressure.getNotesBP());
         //set user id fk
-        bloodPressureDTO.setIdUserDto(userToSave.getIdUser());
+        bloodPressureDTO.setIdUser(userToSave.getIdUser());
 
         return bloodPressureDTO;
     }
@@ -55,13 +55,13 @@ public class BloodPressureConverter {
 
         for (int i = 0; i < bloodPressuresList.size(); i++) {
             BloodPressureDTO bloodPressureToAdd = new BloodPressureDTO();
-            bloodPressureToAdd.setIdBPDto(bloodPressuresList.get(i).getIdBP());
-            bloodPressureToAdd.setSystolicBPDto(bloodPressuresList.get(i).getSystolicBP());
-            bloodPressureToAdd.setDiastolicBPDto(bloodPressuresList.get(i).getDiastolicBP());
-            bloodPressureToAdd.setPulseBPDto(bloodPressuresList.get(i).getPulseBP());
-            bloodPressureToAdd.setDateBPDto(bloodPressuresList.get(i).getDateBP());
-            bloodPressureToAdd.setNotesBPDto(bloodPressuresList.get(i).getNotesBP());
-            bloodPressureToAdd.setIdUserDto(bloodPressuresList.get(i).getUser().getIdUser());
+            bloodPressureToAdd.setIdBP(bloodPressuresList.get(i).getIdBP());
+            bloodPressureToAdd.setSystolicBP(bloodPressuresList.get(i).getSystolicBP());
+            bloodPressureToAdd.setDiastolicBP(bloodPressuresList.get(i).getDiastolicBP());
+            bloodPressureToAdd.setPulseBP(bloodPressuresList.get(i).getPulseBP());
+            bloodPressureToAdd.setDateBP(bloodPressuresList.get(i).getDateBP());
+            bloodPressureToAdd.setNotesBP(bloodPressuresList.get(i).getNotesBP());
+            bloodPressureToAdd.setIdUser(bloodPressuresList.get(i).getUser().getIdUser());
             //add the object to the list
             bloodPressuresListDto.add(bloodPressureToAdd);
         }
