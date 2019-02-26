@@ -18,6 +18,7 @@ public class UserConverter {
         userDTO.setIdUser(user.getIdUser());
         return userDTO;
     }
+
     public UserDTO convertUserToDTOWithPassword(User user) {
         //convert user to userDto (set values for user in userDto) (wit user's password)
         UserDTO userDTO = new UserDTO("UserDTO");
@@ -26,6 +27,7 @@ public class UserConverter {
         userDTO.setPassword(user.getPassword());
         return userDTO;
     }
+
     public User convertUserToObjectFull(UserDTO userDTO) {
         //convert a user to object (with user's password)
         User user = new User();

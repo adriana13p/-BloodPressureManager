@@ -62,7 +62,7 @@ public class BloodPressureService {
 
     public List<BloodPressureDTO> getBloodPressureListByUserAndDateBetween(long idUser, Date startDate, Date endDate) {
         //find a BloodPressure in the repository by idBloodPressure and date between
-       // List<BloodPressure> usersBloodPressures = bloodPressureRepository.findByUserIdUserAndDateBPBetween(idUser, startDate, endDate);
+        // List<BloodPressure> usersBloodPressures = bloodPressureRepository.findByUserIdUserAndDateBPBetween(idUser, startDate, endDate);
         List<BloodPressure> usersBloodPressures = bloodPressureRepository.findByUserIdUserAndDateBPBetweenOrderByDateBPDesc(idUser, startDate, endDate);
 
       /*//order the list descending
