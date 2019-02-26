@@ -18,7 +18,7 @@ public interface BloodPressureRepository
     //find all blood pressures ordered descending by date for a specific user and for a specific date
     List<BloodPressure> findByUserIdUserAndDateBPOrderByDateBPDesc(long idUser, Date dateBP);
 
-    //find all blood pressures ordered descending by date for a specific user and for a time period
+    //find all blood pressures ordered date for a specific user and for a time period
     List<BloodPressure> findByUserIdUserAndDateBPBetween(long idUser, Date dateBPStart, Date dateBPEnd);
 
     //find all blood pressures ordered descending by date for a specific user and for a time period

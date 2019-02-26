@@ -18,7 +18,7 @@ public class BloodPressureController {
     private BloodPressureService bloodPressureService;
 
 
-    @RequestMapping(path = "/bloodPressure/{idBP}", method = RequestMethod.GET)
+    @RequestMapping(path = "/bloodPressureById/{idBP}", method = RequestMethod.GET)
     public BloodPressureDTO geBloodPressureById(@PathVariable("idBP") long idBP) {
         //get a bloodPressure by id
         return bloodPressureService.getBloodPressureById(idBP);
@@ -30,14 +30,14 @@ public class BloodPressureController {
         return bloodPressureService.getBloodPressureListByUserId(idUser);
     }
 
-    @RequestMapping(path = "/bloodPressureByDate/{idUser}/{dateForBP}", method = RequestMethod.GET)
+    @RequestMapping(path = "/bloodPressureByUserIdAndDate/{idUser}/{dateForBP}", method = RequestMethod.GET)
     public List<BloodPressureDTO> getBloodPressureListByUserAndDate(@PathVariable("idUser") long idUser,
                                                                     @PathVariable("dateForBP") Date dateForBP) {
         //get a bloodPressure list  by user id and bloodPressure date
         return bloodPressureService.getBloodPressureListByUserAndDate(idUser, dateForBP);
     }
 
-    @RequestMapping(path = "/bloodPressureByDateBetween/{idUser}/{startDate}/{endDate}",
+    @RequestMapping(path = "/bloodPressureByUseIdAndDateBetween/{idUser}/{startDate}/{endDate}",
             method = RequestMethod.GET)
     public List<BloodPressureDTO> getBloodPressureListByUserAndDateBetween(@PathVariable("idUser") long idUser,
                                                                            @PathVariable("startDate") Date startDate,

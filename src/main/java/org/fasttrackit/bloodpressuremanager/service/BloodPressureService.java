@@ -36,10 +36,9 @@ public class BloodPressureService {
             //if the id does not exist in repository, throw an exception
             throw new NotFoundException("" + idBloodPressure);
         }
-        //getUser
-        User user = userRepository.findOne(idBloodPressure);
+
         //convert user to dto
-        BloodPressureDTO bloodPressureDTO = bloodPressureConverter.convertBloodPressureToDTO(bloodPressure, user);
+        BloodPressureDTO bloodPressureDTO = bloodPressureConverter.convertBloodPressureToDTO(bloodPressure, bloodPressure.getUser());
         return bloodPressureDTO;
     }
 
@@ -114,7 +113,7 @@ public class BloodPressureService {
             //get the bloodPressure object from repository
             BloodPressureDTO bloodPressureDTO = getBloodPressureById(bloodPressureId);
             //getUser
-            User user = userRepository.findOne(bloodPressureId);
+            User user = userRepository.findOne(bloodPressureDTO.getIdUserDto());
             //delete blood pressure
             //TODO intrebare: ar trebui sa pun cautarea de user " User user = userRepository.findOne(bloodPressureId)"
             // ininteriorul convertorului pt bloodPressure ?
@@ -143,9 +142,7 @@ public class BloodPressureService {
         //  acelea vor ramane neschimbate?)
 
         BloodPressure savedObject = bloodPressureRepository.save(bloodPressure);
-        //get the user
-        User user = userRepository.findOne(bpDto.getIdUserDto());
-        return bloodPressureConverter.convertBloodPressureToDTO(savedObject, user);
+        return bloodPressureConverter.convertBloodPressureToDTO(savedObject, bloodPressure.getUser());
     }
 
     public boolean checkBloodPressureIdExistInRepository(long idBP) {
