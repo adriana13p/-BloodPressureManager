@@ -46,7 +46,7 @@ public class UserDetailsService {
         //delete a userDetails from repository
         //check userDetails ID
         boolean userDetailsExists = checkUserDetailsIdExistInRepository(idUserDetails);
-        if (userDetailsExists == true) {
+        if (userDetailsExists) {
             //if the userDetails id exists in repository, delete the user details
             UserDetailsDTO userDetailsDTO = getUserDetailsById(idUserDetails);
             //getUser
@@ -93,7 +93,7 @@ public class UserDetailsService {
         //find a userDetails in the repository by userName
         UserDetails userDetails = userDetailsRepository.findOne(idUserDetails);
         //check if the userDetails exists in repository
-        if (!(userDetails == null)) {
+        if (userDetails != null) {
             //if the userDetails id exists in repository set the flag to true
             userDetailsExists = true;
         }

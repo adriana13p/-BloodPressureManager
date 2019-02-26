@@ -108,7 +108,7 @@ public class BloodPressureService {
         //delete a bloodPressure from repository
         //check bloodPressure ID
         boolean bloodPressureExists = checkBloodPressureIdExistInRepository(bloodPressureId);
-        if (bloodPressureExists == true) {
+        if (bloodPressureExists) {
             //if the bloodPressure id exists in repository, delete the user details
             try {
                 bloodPressureRepository.delete(bloodPressureId);
@@ -134,7 +134,7 @@ public class BloodPressureService {
         User user = userRepository.findOne(bpDto.getIdUser());
         //set user
         bloodPressure.setUser(user);
-      
+
         BloodPressure savedObject = bloodPressureRepository.save(bloodPressure);
         return bloodPressureConverter.convertBloodPressureToDTO(savedObject, bloodPressure.getUser());
     }

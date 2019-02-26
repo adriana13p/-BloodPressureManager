@@ -44,7 +44,7 @@ public class UserService {
 
         //check if the user name exists in repository
         boolean userExists = checkUserNameExistInRepository(userToSaveDto.getUserName());
-        if (userExists == false) {
+        if (!userExists) {
             //save user
             User userObject = userConverter.convertUserToObjectFull(userToSaveDto);
             try {
@@ -72,7 +72,7 @@ public class UserService {
         // e ok cum arunc exceptia in cazul in care exista deja userul sau ar trebui sa schimb ceva?
         //check if the user name exists in repository
         boolean userExists = checkUserNameExistInRepository(userToSaveDto.getUserName());
-        if (userExists == false) {
+        if (!userExists) {
             //if userName does not exist save user with details
             User userObject = userConverter.convertUserToObjectFull(userToSaveDto);
             userObject.setUserDetails(userDetails);
@@ -143,7 +143,7 @@ public class UserService {
         //find a user in the repository by userName
         User user = userRepository.findByUserName(userName);
         //check if the user exists in repository
-        if (!(user == null)) {
+        if (user != null) {
             //if the user name exists in repository set the flag to true
             userExists = true;
         }
@@ -168,7 +168,7 @@ public class UserService {
         //delete a user from repository
         //check user ID
         boolean userExists = checkUerIdExistInRepository(idUser);
-        if (userExists == true) {
+        if (userExists) {
             //if the user id exists in repository, delete the user
             //get the user object from repository
             UserDTO userDTO = getUserById(idUser);
