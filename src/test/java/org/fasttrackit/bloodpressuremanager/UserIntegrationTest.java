@@ -55,11 +55,11 @@ public class UserIntegrationTest {
 
         //save a userDetails with all fields filled
         UserDetailsDTO userDetailsDto = new UserDetailsDTO();
-        userDetailsDto.setFirstNameDto("Avram");
-        userDetailsDto.setSecondNameDto("Cristian");
-        userDetailsDto.setAgeDto(36);
-        userDetailsDto.setGenderDto('M');
-        userDetailsDto.setNotesDto("treatment with Prestarium 5mg");
+        userDetailsDto.setFirstName("Avram");
+        userDetailsDto.setSecondName("Cristian");
+        userDetailsDto.setAge(36);
+        userDetailsDto.setGender('M');
+        userDetailsDto.setNotes("treatment with Prestarium 5mg");
         //save the user with the user details
         userService.saveUserWithDetails(userToSave, userDetailsConverter.convertToObjectWithoutUser(userDetailsDto));
     }

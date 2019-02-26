@@ -28,12 +28,12 @@ public class UserDetailsIntegrationTest {
     public void testSaveUserDetails() {
         //save a userDetails with all fields filled
         UserDetailsDTO userDetailsDto = new UserDetailsDTO();
-        userDetailsDto.setIdUserDto(1);
-        userDetailsDto.setFirstNameDto("Precup");
-        userDetailsDto.setSecondNameDto("Adriana");
-        userDetailsDto.setAgeDto(33);
-        userDetailsDto.setGenderDto('F');
-        userDetailsDto.setNotesDto("no medication");
+        userDetailsDto.setIdUser(1);
+        userDetailsDto.setFirstName("Precup");
+        userDetailsDto.setSecondName("Adriana");
+        userDetailsDto.setAge(33);
+        userDetailsDto.setGender('F');
+        userDetailsDto.setNotes("no medication");
         userDetailsService.saveUserDetails(userDetailsDto);
     }
 

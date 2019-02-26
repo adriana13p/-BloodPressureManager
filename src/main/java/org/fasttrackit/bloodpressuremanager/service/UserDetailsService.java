@@ -27,12 +27,12 @@ public class UserDetailsService {
     public void saveUserDetails(UserDetailsDTO userDetailsDTO) {
         //save user details in repository (first name and second name must not be null)
         //check first name
-        CheckUtils.checkStringIsNotNull(userDetailsDTO.getFirstNameDto(), "UserDetails's first name");
+        CheckUtils.checkStringIsNotNull(userDetailsDTO.getFirstName(), "UserDetails's first name");
 
         //check second name
-        CheckUtils.checkStringIsNotNull(userDetailsDTO.getSecondNameDto(), "UserDetails's second name");
+        CheckUtils.checkStringIsNotNull(userDetailsDTO.getSecondName(), "UserDetails's second name");
 
-        User user = userRepository.findOne(userDetailsDTO.getIdUserDto());
+        User user = userRepository.findOne(userDetailsDTO.getIdUser());
         UserDetails userDetailsObject = userDetailsConverter.convertToObject(userDetailsDTO, user);
 
         try {
@@ -76,12 +76,12 @@ public class UserDetailsService {
     public UserDetailsDTO updateUserDetails(long id, UserDetailsDTO dto) {
         //update a userDetails by id
         UserDetails userDetails = userDetailsRepository.findOne(id);
-        userDetails.setFirstName(dto.getFirstNameDto());
-        userDetails.setSecondName(dto.getSecondNameDto());
-        userDetails.setIdDetails(dto.getIdDetailsDto());
-        userDetails.setAge(dto.getAgeDto());
-        userDetails.setGender(dto.getGenderDto());
-        userDetails.setNotes(dto.getNotesDto());
+        userDetails.setFirstName(dto.getFirstName());
+        userDetails.setSecondName(dto.getSecondName());
+        userDetails.setIdDetails(dto.getIdDetails());
+        userDetails.setAge(dto.getAge());
+        userDetails.setGender(dto.getGender());
+        userDetails.setNotes(dto.getNotes());
 
         UserDetails savedObject = userDetailsRepository.save(userDetails);
         return userDetailsConverter.convertToDTO(savedObject);

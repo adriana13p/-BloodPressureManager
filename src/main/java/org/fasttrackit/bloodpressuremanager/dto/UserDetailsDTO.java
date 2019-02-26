@@ -1,99 +1,99 @@
 package org.fasttrackit.bloodpressuremanager.dto;
 
 public class UserDetailsDTO {
-    private long idDetailsDto;
-    private String firstNameDto;
-    private String secondNameDto;
-    private Integer ageDto;
-    private char genderDto;
-    private String notesDto;
-    private long idUserDto;
+    private long idDetails;
+    private String firstName;
+    private String secondName;
+    private Integer age;
+    private char gender;
+    private String notes;
+    private long idUser;
 
     public UserDetailsDTO() {
     }
 
 
-    public UserDetailsDTO(String firstNameDto, String secondNameDto) {
-        this.firstNameDto = firstNameDto;
-        this.secondNameDto = secondNameDto;
+    public UserDetailsDTO(String firstName, String secondName) {
+        this.firstName = firstName;
+        this.secondName = secondName;
     }
 
-    public UserDetailsDTO(long idDetailsDto, String firstNameDto, String secondNameDto, Integer ageDto, char genderDto, String notesDto, long idUserDto) {
-        this.idDetailsDto = idDetailsDto;
-        this.firstNameDto = firstNameDto;
-        this.secondNameDto = secondNameDto;
-        this.ageDto = ageDto;
-        this.genderDto = genderDto;
-        this.notesDto = notesDto;
-        this.idUserDto = idUserDto;
+    public UserDetailsDTO(long idDetails, String firstName, String secondName, Integer age, char gender, String notes, long idUser) {
+        this.idDetails = idDetails;
+        this.firstName = firstName;
+        this.secondName = secondName;
+        this.age = age;
+        this.gender = gender;
+        this.notes = notes;
+        this.idUser = idUser;
     }
 
-    public long getIdDetailsDto() {
-        return idDetailsDto;
+    public long getIdDetails() {
+        return idDetails;
     }
 
-    public void setIdDetailsDto(long idDetailsDto) {
-        this.idDetailsDto = idDetailsDto;
+    public void setIdDetails(long idDetails) {
+        this.idDetails = idDetails;
     }
 
-    public String getFirstNameDto() {
-        return firstNameDto;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirstNameDto(String firstNameDto) {
-        this.firstNameDto = firstNameDto;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getSecondNameDto() {
-        return secondNameDto;
+    public String getSecondName() {
+        return secondName;
     }
 
-    public void setSecondNameDto(String secondNameDto) {
-        this.secondNameDto = secondNameDto;
+    public void setSecondName(String secondName) {
+        this.secondName = secondName;
     }
 
-    public Integer getAgeDto() {
-        return ageDto;
+    public Integer getAge() {
+        return age;
     }
 
-    public void setAgeDto(Integer ageDto) {
-        this.ageDto = ageDto;
+    public void setAge(Integer age) {
+        this.age = age;
     }
 
-    public char getGenderDto() {
-        return genderDto;
+    public char getGender() {
+        return gender;
     }
 
-    public void setGenderDto(char genderDto) {
-        this.genderDto = genderDto;
+    public void setGender(char gender) {
+        this.gender = gender;
     }
 
-    public String getNotesDto() {
-        return notesDto;
+    public String getNotes() {
+        return notes;
     }
 
-    public void setNotesDto(String notesDto) {
-        this.notesDto = notesDto;
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 
-    public long getIdUserDto() {
-        return idUserDto;
+    public long getIdUser() {
+        return idUser;
     }
 
-    public void setIdUserDto(long idUserDto) {
-        this.idUserDto = idUserDto;
+    public void setIdUser(long idUser) {
+        this.idUser = idUser;
     }
 
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("UserDetailsDTO{");
-        sb.append("idDetailsDto=").append(idDetailsDto);
-        sb.append(", firstNameDto='").append(firstNameDto).append('\'');
-        sb.append(", secondNameDto='").append(secondNameDto).append('\'');
-        sb.append(", ageDto=").append(ageDto);
-        sb.append(", genderDto=").append(genderDto);
-        sb.append(", notesDto='").append(notesDto).append('\'');
-        sb.append(", idUserDto=").append(idUserDto);
+        sb.append("idDetails=").append(idDetails);
+        sb.append(", firstName='").append(firstName).append('\'');
+        sb.append(", secondName='").append(secondName).append('\'');
+        sb.append(", age=").append(age);
+        sb.append(", gender=").append(gender);
+        sb.append(", notes='").append(notes).append('\'');
+        sb.append(", idUser=").append(idUser);
         sb.append('}');
         return sb.toString();
     }
