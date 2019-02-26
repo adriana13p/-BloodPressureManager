@@ -50,8 +50,8 @@ public class UserIntegrationTest {
 
         //save a user with userDetails
         UserDTO userToSave = new UserDTO();
-        userToSave.setUserName("Cris36");
-        userToSave.setPassword("Cris36");
+        userToSave.setUserName("Test1");
+        userToSave.setPassword("Test1");
 
         //save a userDetails with all fields filled
         UserDetailsDTO userDetailsDto = new UserDetailsDTO();

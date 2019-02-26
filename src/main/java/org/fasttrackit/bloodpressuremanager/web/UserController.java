@@ -1,6 +1,7 @@
 package org.fasttrackit.bloodpressuremanager.web;
 
 import org.fasttrackit.bloodpressuremanager.dto.UserDTO;
+import org.fasttrackit.bloodpressuremanager.dto.UserWithDetailsDTO;
 import org.fasttrackit.bloodpressuremanager.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +32,11 @@ public class UserController {
         return userService.getUserByUserName(userName);
     }
 
+    @RequestMapping(path = "/getUserByIdWithDetails/{id}", method = RequestMethod.GET)
+    public UserWithDetailsDTO geUserByIdWithDetails(@PathVariable("id") long id) {
+        //get a user by id
+        return userService.UserWithDetailsDTO(id);
+    }
     @RequestMapping(path = "/saveUser", method = RequestMethod.POST)
     public void saveUser(@RequestBody UserDTO user) throws Exception {
         LOGGER.info("user >> {}", user.getUserName());

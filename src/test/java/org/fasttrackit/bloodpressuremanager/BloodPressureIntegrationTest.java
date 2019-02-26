@@ -87,15 +87,15 @@ public class BloodPressureIntegrationTest {
     public void updateABloodPressure() {
         //update a blood pressure by id
         BloodPressureDTO bpToSet =new BloodPressureDTO();
-        bpToSet.setIdBP(12);
-        bpToSet.setIdUser(2);
+        bpToSet.setIdBP(19);
+        bpToSet.setIdUser(5);
         //format a string into date
         Date dateToSave = DateUtils.formatStringToDate("19.02.2019 09:35:59");
         bpToSet.setDateBP(dateToSave);
         bpToSet.setSystolicBP(153);
         bpToSet.setDiastolicBP(91);
         bpToSet.setPulseBP(89);
-        bpToSet.setNotesBP("test note");
+        bpToSet.setNotesBP("test");
 
         bloodPressureService.updateBloodPressure(12, bpToSet);
         System.out.println("BloodPressure was updated");

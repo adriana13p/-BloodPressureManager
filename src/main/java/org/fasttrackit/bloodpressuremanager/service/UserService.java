@@ -4,9 +4,11 @@ import org.fasttrackit.bloodpressuremanager.domain.User;
 import org.fasttrackit.bloodpressuremanager.domain.UserDetails;
 import org.fasttrackit.bloodpressuremanager.dto.BloodPressureDTO;
 import org.fasttrackit.bloodpressuremanager.dto.UserDTO;
+import org.fasttrackit.bloodpressuremanager.dto.UserWithDetailsDTO;
 import org.fasttrackit.bloodpressuremanager.exception.NotFoundException;
 import org.fasttrackit.bloodpressuremanager.mapper.BloodPressureConverter;
 import org.fasttrackit.bloodpressuremanager.mapper.UserConverter;
+import org.fasttrackit.bloodpressuremanager.mapper.UserWithDetailsConverter;
 import org.fasttrackit.bloodpressuremanager.persistence.UserDetailsRepository;
 import org.fasttrackit.bloodpressuremanager.persistence.UserRepository;
 import org.fasttrackit.bloodpressuremanager.util.CheckUtils;
@@ -33,6 +35,8 @@ public class UserService {
     private BloodPressureService bloodPressureService;
     @Autowired
     private BloodPressureConverter bloodPressureConverter;
+    @Autowired
+    private UserWithDetailsConverter userWithDetailsConverter;
 
     public void saveUser(UserDTO userToSaveDto) throws Exception {
         //save a user in repository (user name and password must not be null)
@@ -67,28 +71,16 @@ public class UserService {
         //check password is not null
         CheckUtils.checkStringIsNotNull(userToSaveDto.getPassword(), "Password");
 
-        //TODO intrebare: e ok cum am facut verificarea daca userul exista deja in baza de date?
-        // sau ar trebui sa o fac in alt mod verificarea?
-        // e ok cum arunc exceptia in cazul in care exista deja userul sau ar trebui sa schimb ceva?
-        //check if the user name exists in repository
-        boolean userExists = checkUserNameExistInRepository(userToSaveDto.getUserName());
-        if (!userExists) {
-            //if userName does not exist save user with details
-            User userObject = userConverter.convertUserToObjectFull(userToSaveDto);
-            userObject.setUserDetails(userDetails);
-            userDetails.setUser(userObject);
-            try {
-                userRepository.save(userObject);
-            } catch (Exception e) {
-                System.out.print("Error when saving user " + e);
-            }
-        } else {
-            //if userName already exists throw an exception
-            System.out.println("A user with " + userToSaveDto.getUserName() + "already exists");
-
+        //if userName does not exist save user with details
+        User userObject = userConverter.convertUserToObjectFull(userToSaveDto);
+        userObject.setUserDetails(userDetails);
+        userDetails.setUser(userObject);
+        try {
+            userRepository.save(userObject);
+        } catch (Exception e) {
+            System.out.print("Error when saving user " + e);
             throw new Exception("A user with " + userToSaveDto.getUserName() + " already exists");
         }
-
     }
 
     public UserDTO getUserById(long id) {
@@ -100,6 +92,23 @@ public class UserService {
         //convert user to dto
         UserDTO userDto = userConverter.convertUserToDTOWithoutPassword(user);
         return userDto;
+    }
+
+    public UserWithDetailsDTO UserWithDetailsDTO(long id) {
+        //get a user with userDetails
+        //search user by id in repository
+        User user = userRepository.findOne(id);
+        if (user == null) {
+            throw new IllegalArgumentException("The id is not valid.");
+        }
+
+        //search userDetails by id in repository
+        UserDetails userDetails = userDetailsRepository.findOne(user.getUserDetails().getIdDetails());
+        if (userDetails == null) {
+            throw new IllegalArgumentException("The user details id is not valid.");
+        }
+
+        return userWithDetailsConverter.convertUserWithDetails(user, userDetails);
     }
 
     public UserDTO getUserWithPasswordById(long id) {
@@ -134,7 +143,7 @@ public class UserService {
         user.setPassword(dto.getPassword());
 
         User savedObject = userRepository.save(user);
-        return userConverter.convertUserToDTOWithoutPassword(savedObject);
+        return userConverter.convertUserToDTOWithPassword(savedObject);
     }
 
     public boolean checkUserNameExistInRepository(String userName) {
@@ -149,6 +158,7 @@ public class UserService {
         }
         return userExists;
     }
+
     public boolean checkUerIdExistInRepository(long idUser) {
         //check if the user id exists in repository
         boolean userExists = false;
@@ -180,20 +190,20 @@ public class UserService {
             //TODO intrebare: testul trece dar nu sterge din tabelul blood_pressures => nu sterge nici userul
             // pt ca: delete on table "users" violates foreign key constraint "fk_j2dgywb2kn6pnpbj52v8q9gj8" on table "blood_pressures"
             try {
-                for (int i=0; i<userBPList.size();i++){
+                for (int i = 0; i < userBPList.size(); i++) {
                     long bpToDeleteId = userBPList.get(i).getIdBP();
                     bloodPressureService.deleteBloodPressureById(bpToDeleteId);
                 }
             } catch (Exception e) {
                 System.out.print("Error when deleting bloodPressure " + e);
             }
-           //delete user
+            //delete user
             try {
                 userRepository.delete(userToDelete);
             } catch (Exception e) {
                 System.out.print("Error when deleting user " + e);
             }
-           //delete userDetails
+            //delete userDetails
             try {
                 userDetailsRepository.delete(userDetails.getIdDetails());
             } catch (Exception e) {
