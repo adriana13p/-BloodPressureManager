@@ -14,24 +14,24 @@ public class UserConverter {
     public UserDTO convertUserToDTOWithoutPassword(User user) {
         //convert user to userDto (set values for user in userDto) (without user's password)
         UserDTO userDTO = new UserDTO("UserDTO");
-        userDTO.setUserNameDto(user.getUserName());
-        userDTO.setIdUserDto(user.getIdUser());
+        userDTO.setUserName(user.getUserName());
+        userDTO.setIdUser(user.getIdUser());
         return userDTO;
     }
     public UserDTO convertUserToDTOWithPassword(User user) {
         //convert user to userDto (set values for user in userDto) (wit user's password)
         UserDTO userDTO = new UserDTO("UserDTO");
-        userDTO.setIdUserDto(user.getIdUser());
-        userDTO.setUserNameDto(user.getUserName());
-        userDTO.setPasswordDto(user.getPassword());
+        userDTO.setIdUser(user.getIdUser());
+        userDTO.setUserName(user.getUserName());
+        userDTO.setPassword(user.getPassword());
         return userDTO;
     }
     public User convertUserToObjectFull(UserDTO userDTO) {
         //convert a user to object (with user's password)
         User user = new User();
-        user.setUserName(userDTO.getUserNameDto());
-        user.setIdUser(userDTO.getIdUserDto());
-        user.setPassword(userDTO.getPasswordDto());
+        user.setUserName(userDTO.getUserName());
+        user.setIdUser(userDTO.getIdUser());
+        user.setPassword(userDTO.getPassword());
         return user;
     }
 

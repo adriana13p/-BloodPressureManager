@@ -33,7 +33,7 @@ public class UserController {
 
     @RequestMapping(path = "/saveUser", method = RequestMethod.POST)
     public void saveUser(@RequestBody UserDTO user) throws Exception {
-        LOGGER.info("user >> {}", user.getUserNameDto());
+        LOGGER.info("user >> {}", user.getUserName());
         //save a user
         userService.saveUser(user);
 

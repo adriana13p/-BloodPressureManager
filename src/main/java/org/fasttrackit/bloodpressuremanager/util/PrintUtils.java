@@ -43,8 +43,8 @@ public class PrintUtils {
     public static void printUserNameAndId(UserDTO userToFind) {
         //print user Name and Id
         System.out.println("*********** User name and id ************");
-        System.out.println(userToFind.getIdUserDto());
-        System.out.println(userToFind.getUserNameDto());
+        System.out.println(userToFind.getIdUser());
+        System.out.println(userToFind.getUserName());
         System.out.println("***********************");
     }
 }

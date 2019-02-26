@@ -83,7 +83,7 @@ public class BloodPressureService {
     public void saveBloodPressure(BloodPressureDTO bloodPressureDto) {
         //save a BloodPressure in repository ()
         //check user id is not null
-        //  CheckUtils.checkLongElementIsNotNull(bloodPressureDto.getIdUserDto(), "User id");
+        //  CheckUtils.checkLongElementIsNotNull(bloodPressureDto.getIdUser(), "User id");
         //check that at least one field is not empty
         if ((bloodPressureDto.getSystolicBPDto() == null) ||
                 (bloodPressureDto.getDiastolicBPDto() == null) ||

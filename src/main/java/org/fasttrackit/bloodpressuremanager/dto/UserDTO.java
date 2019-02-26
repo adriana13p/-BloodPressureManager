@@ -1,9 +1,9 @@
 package org.fasttrackit.bloodpressuremanager.dto;
 
 public class UserDTO {
-    private long idUserDto;
-    private String userNameDto;
-    private String passwordDto;
+    private long idUser;
+    private String userName;
+    private String password;
     //TODO intrebare: ar trebui sa adaug si lista de bloodPressures ca in object? sau nu e musai?
     // sau o lista cu id-urile pentru bloodPressures?
 
@@ -11,44 +11,44 @@ public class UserDTO {
 
     }
 
-    public UserDTO(String userNameDto) {
-        this.userNameDto = userNameDto;
+    public UserDTO(String userName) {
+        this.userName = userName;
     }
 
-    public UserDTO(String userNameDto, String passwordDto) {
-        this.userNameDto = userNameDto;
-        this.passwordDto = passwordDto;
+    public UserDTO(String userName, String password) {
+        this.userName = userName;
+        this.password = password;
     }
 
-    public long getIdUserDto() {
-        return idUserDto;
+    public long getIdUser() {
+        return idUser;
     }
 
-    public void setIdUserDto(long idUserDto) {
-        this.idUserDto = idUserDto;
+    public void setIdUser(long idUser) {
+        this.idUser = idUser;
     }
 
-    public String getUserNameDto() {
-        return userNameDto;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUserNameDto(String userNameDto) {
-        this.userNameDto = userNameDto;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getPasswordDto() {
-        return passwordDto;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPasswordDto(String passwordDto) {
-        this.passwordDto = passwordDto;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
     public String toString() {
         return "UserDTO{" +
-                "user id=" + idUserDto +
-                ",user name='" + userNameDto + '\'' +
+                "user id=" + idUser +
+                ",user name='" + userName + '\'' +
                 '}';
     }
 }

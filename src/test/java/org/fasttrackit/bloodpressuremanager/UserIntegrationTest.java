@@ -40,8 +40,8 @@ public class UserIntegrationTest {
 
         //save a user
         UserDTO userToSave = new UserDTO();
-        userToSave.setUserNameDto("David13");
-        userToSave.setPasswordDto("David13");
+        userToSave.setUserName("David13");
+        userToSave.setPassword("David13");
         userService.saveUser(userToSave);
     }
 
@@ -50,8 +50,8 @@ public class UserIntegrationTest {
 
         //save a user with userDetails
         UserDTO userToSave = new UserDTO();
-        userToSave.setUserNameDto("Cris36");
-        userToSave.setPasswordDto("Cris36");
+        userToSave.setUserName("Cris36");
+        userToSave.setPassword("Cris36");
 
         //save a userDetails with all fields filled
         UserDetailsDTO userDetailsDto = new UserDetailsDTO();
@@ -86,8 +86,8 @@ public class UserIntegrationTest {
     public void updateAUser() {
         //update a user
         UserDTO userToUpdate = new UserDTO();
-        userToUpdate.setUserNameDto("Laura");
-        userToUpdate.setPasswordDto("Laura");
+        userToUpdate.setUserName("Laura");
+        userToUpdate.setPassword("Laura");
         userService.updateUser(5, userToUpdate);
         System.out.println("User was updated");
     }

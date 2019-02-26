@@ -1,6 +1,5 @@
 package org.fasttrackit.bloodpressuremanager.service;
 
-import org.fasttrackit.bloodpressuremanager.domain.BloodPressure;
 import org.fasttrackit.bloodpressuremanager.domain.User;
 import org.fasttrackit.bloodpressuremanager.domain.UserDetails;
 import org.fasttrackit.bloodpressuremanager.dto.BloodPressureDTO;
@@ -38,13 +37,13 @@ public class UserService {
     public void saveUser(UserDTO userToSaveDto) throws Exception {
         //save a user in repository (user name and password must not be null)
         //check user's name is not null
-        CheckUtils.checkStringIsNotNull(userToSaveDto.getUserNameDto(), "User name");
+        CheckUtils.checkStringIsNotNull(userToSaveDto.getUserName(), "User name");
 
         //check password is not null
-        CheckUtils.checkStringIsNotNull(userToSaveDto.getPasswordDto(), "Password");
+        CheckUtils.checkStringIsNotNull(userToSaveDto.getPassword(), "Password");
 
         //check if the user name exists in repository
-        boolean userExists = checkUserNameExistInRepository(userToSaveDto.getUserNameDto());
+        boolean userExists = checkUserNameExistInRepository(userToSaveDto.getUserName());
         if (userExists == false) {
             //save user
             User userObject = userConverter.convertUserToObjectFull(userToSaveDto);
@@ -54,25 +53,25 @@ public class UserService {
                 System.out.print("Error when saving user " + e);
             }
         } else {
-            System.out.println("A user with " + userToSaveDto.getUserNameDto() + "already exists");
+            System.out.println("A user with " + userToSaveDto.getUserName() + "already exists");
 
-            throw new Exception("A user with " + userToSaveDto.getUserNameDto() + " already exists");
+            throw new Exception("A user with " + userToSaveDto.getUserName() + " already exists");
         }
     }
 
     public void saveUserWithDetails(UserDTO userToSaveDto, UserDetails userDetails) throws Exception {
         //save a user with user details in repository (user name and password must not be null)
         //check user's name is not null
-        CheckUtils.checkStringIsNotNull(userToSaveDto.getUserNameDto(), "User name");
+        CheckUtils.checkStringIsNotNull(userToSaveDto.getUserName(), "User name");
 
         //check password is not null
-        CheckUtils.checkStringIsNotNull(userToSaveDto.getPasswordDto(), "Password");
+        CheckUtils.checkStringIsNotNull(userToSaveDto.getPassword(), "Password");
 
         //TODO intrebare: e ok cum am facut verificarea daca userul exista deja in baza de date?
         // sau ar trebui sa o fac in alt mod verificarea?
         // e ok cum arunc exceptia in cazul in care exista deja userul sau ar trebui sa schimb ceva?
         //check if the user name exists in repository
-        boolean userExists = checkUserNameExistInRepository(userToSaveDto.getUserNameDto());
+        boolean userExists = checkUserNameExistInRepository(userToSaveDto.getUserName());
         if (userExists == false) {
             //if userName does not exist save user with details
             User userObject = userConverter.convertUserToObjectFull(userToSaveDto);
@@ -85,9 +84,9 @@ public class UserService {
             }
         } else {
             //if userName already exists throw an exception
-            System.out.println("A user with " + userToSaveDto.getUserNameDto() + "already exists");
+            System.out.println("A user with " + userToSaveDto.getUserName() + "already exists");
 
-            throw new Exception("A user with " + userToSaveDto.getUserNameDto() + " already exists");
+            throw new Exception("A user with " + userToSaveDto.getUserName() + " already exists");
         }
 
     }
@@ -131,8 +130,8 @@ public class UserService {
     public UserDTO updateUser(long id, UserDTO dto) {
         //update a user by id
         User user = userRepository.findOne(id);
-        user.setUserName(dto.getUserNameDto());
-        user.setPassword(dto.getPasswordDto());
+        user.setUserName(dto.getUserName());
+        user.setPassword(dto.getPassword());
 
         User savedObject = userRepository.save(user);
         return userConverter.convertUserToDTOWithoutPassword(savedObject);
