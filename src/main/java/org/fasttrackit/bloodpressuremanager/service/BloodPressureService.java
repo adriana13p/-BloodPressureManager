@@ -109,17 +109,9 @@ public class BloodPressureService {
         //check bloodPressure ID
         boolean bloodPressureExists = checkBloodPressureIdExistInRepository(bloodPressureId);
         if (bloodPressureExists == true) {
-            //if the userDetails id exists in repository, delete the user details
-            //get the bloodPressure object from repository
-            BloodPressureDTO bloodPressureDTO = getBloodPressureById(bloodPressureId);
-            //getUser
-            User user = userRepository.findOne(bloodPressureDTO.getIdUser());
-            //delete blood pressure
-            //TODO intrebare: ar trebui sa pun cautarea de user " User user = userRepository.findOne(bloodPressureId)"
-            // ininteriorul convertorului pt bloodPressure ?
-            BloodPressure bloodPressureToDelete = bloodPressureConverter.convertBloodPressureToObject(bloodPressureDTO, user);
+            //if the bloodPressure id exists in repository, delete the user details
             try {
-                bloodPressureRepository.delete(bloodPressureToDelete);
+                bloodPressureRepository.delete(bloodPressureId);
             } catch (Exception e) {
                 System.out.print("Error when deleting bloodPressure " + e);
             }
@@ -131,16 +123,18 @@ public class BloodPressureService {
     public BloodPressureDTO updateBloodPressure(long id, BloodPressureDTO bpDto) {
         //update a user by id
         BloodPressure bloodPressure = bloodPressureRepository.findOne(id);
+        bloodPressure.setIdBP(bpDto.getIdBP());
         bloodPressure.setSystolicBP(bpDto.getSystolicBP());
         bloodPressure.setDiastolicBP(bpDto.getDiastolicBP());
         bloodPressure.setPulseBP(bpDto.getPulseBP());
         bloodPressure.setDateBP(bpDto.getDateBP());
         bloodPressure.setNotesBP(bpDto.getNotesBP());
-        //TODO intrebare: daca vreau sa fac update la un bloodPressure trebuie sa-i setez toate filed-urile?
-        //  sau doar cele care vreau sa le schimb?
-        // ( daca BloodPressure are si un field id si un obiect user trebuie sa le setez aici sau
-        //  acelea vor ramane neschimbate?)
 
+        //getUser
+        User user = userRepository.findOne(bpDto.getIdUser());
+        //set user
+        bloodPressure.setUser(user);
+      
         BloodPressure savedObject = bloodPressureRepository.save(bloodPressure);
         return bloodPressureConverter.convertBloodPressureToDTO(savedObject, bloodPressure.getUser());
     }

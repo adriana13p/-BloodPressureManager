@@ -95,7 +95,7 @@ public class BloodPressureIntegrationTest {
         bpToSet.setSystolicBP(153);
         bpToSet.setDiastolicBP(91);
         bpToSet.setPulseBP(89);
-        bpToSet.setNotesBP("no medication");
+        bpToSet.setNotesBP("test note");
 
         bloodPressureService.updateBloodPressure(12, bpToSet);
         System.out.println("BloodPressure was updated");
@@ -105,7 +105,7 @@ public class BloodPressureIntegrationTest {
     @Test
     public void deleteABloodPressure() {
         //delete a blood pressure by id
-        bloodPressureService.deleteBloodPressureById(13);
+        bloodPressureService.deleteBloodPressureById(17);
         System.out.println("BloodPressure was deleted");
     }
 
