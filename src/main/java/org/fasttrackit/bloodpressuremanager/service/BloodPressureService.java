@@ -80,10 +80,9 @@ public class BloodPressureService {
     }
 
     @Transactional
-    public void saveBloodPressure(BloodPressureDTO bloodPressureDto) {
+    public boolean saveBloodPressure(BloodPressureDTO bloodPressureDto) {
         //save a BloodPressure in repository ()
-        //check user id is not null
-        //  CheckUtils.checkLongElementIsNotNull(bloodPressureDto.getIdUser(), "User id");
+       boolean savedBP = false;
         //check that at least one field is not empty
         if ((bloodPressureDto.getSystolicBP() == null) ||
                 (bloodPressureDto.getDiastolicBP() == null) ||
@@ -99,25 +98,30 @@ public class BloodPressureService {
         //save blood pressure
         try {
             bloodPressureRepository.save(bloodPressureObject);
+            savedBP = true;
         } catch (Exception e) {
             System.out.println("Error when saving bloodPressure " + e);
         }
+        return savedBP;
     }
 
-    public void deleteBloodPressureById(long bloodPressureId) {
+    public boolean deleteBloodPressureById(long bloodPressureId) {
         //delete a bloodPressure from repository
         //check bloodPressure ID
+      boolean bpDeleted = false;
         boolean bloodPressureExists = checkBloodPressureIdExistInRepository(bloodPressureId);
         if (bloodPressureExists) {
             //if the bloodPressure id exists in repository, delete the user details
             try {
                 bloodPressureRepository.delete(bloodPressureId);
+                bpDeleted = true;
             } catch (Exception e) {
                 System.out.print("Error when deleting bloodPressure " + e);
             }
         } else {
             System.out.println("Blood Pressure for id " + bloodPressureId + "does not exist");
         }
+        return bpDeleted;
     }
 
     public BloodPressureDTO updateBloodPressure(long id, BloodPressureDTO bpDto) {

@@ -1,10 +1,13 @@
 package org.fasttrackit.bloodpressuremanager.web;
 
 import org.fasttrackit.bloodpressuremanager.dto.BloodPressureDTO;
+import org.fasttrackit.bloodpressuremanager.dto.UserDTO;
 import org.fasttrackit.bloodpressuremanager.service.BloodPressureService;
+import org.fasttrackit.bloodpressuremanager.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -16,7 +19,17 @@ public class BloodPressureController {
 
     @Autowired
     private BloodPressureService bloodPressureService;
+    @Autowired
+    private UserService userService;
 
+    @RequestMapping(path = "/bloodPressureForUser/{userName}", method = RequestMethod.GET)
+    public List<BloodPressureDTO> bloodPressureForUser(@PathVariable("userName") String userName) {
+        //get user by name in order to obtain the users id
+        UserDTO userDto = userService.getUserByUserName(userName);
+
+        //get a bloodPressure by id
+        return bloodPressureService.getBloodPressureListByUserId(userDto.getIdUser());
+    }
 
     @RequestMapping(path = "/bloodPressureById/{idBP}", method = RequestMethod.GET)
     public BloodPressureDTO geBloodPressureById(@PathVariable("idBP") long idBP) {
@@ -40,17 +53,17 @@ public class BloodPressureController {
     @RequestMapping(path = "/bloodPressureByUseIdAndDateBetween/{idUser}/{startDate}/{endDate}",
             method = RequestMethod.GET)
     public List<BloodPressureDTO> getBloodPressureListByUserAndDateBetween(@PathVariable("idUser") long idUser,
-                                                                           @PathVariable("startDate") Date startDate,
-                                                                           @PathVariable("endDate") Date endDate) {
+                                                                           @PathVariable("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date startDate,
+                                                                           @PathVariable("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date endDate) {
         //get a bloodPressure list  by user id and bloodPressure date between
         return bloodPressureService.getBloodPressureListByUserAndDateBetween(idUser, startDate, endDate);
     }
 
 
     @RequestMapping(path = "/saveBloodPressure", method = RequestMethod.POST)
-    public void saveBloodPressure(@RequestBody BloodPressureDTO bloodPressureDTO) throws Exception {
+    public boolean saveBloodPressure(@RequestBody BloodPressureDTO bloodPressureDTO) throws Exception {
         //save a bloodPressure
-        bloodPressureService.saveBloodPressure(bloodPressureDTO);
+        return bloodPressureService.saveBloodPressure(bloodPressureDTO);
 
     }
 
@@ -61,8 +74,8 @@ public class BloodPressureController {
     }
 
     @RequestMapping(path = "/deleteBloodPressure/{id}", method = RequestMethod.DELETE)
-    public void deleteBloodPressure(@PathVariable long id) throws Exception {
+    public boolean deleteBloodPressure(@PathVariable long id) throws Exception {
         //delete a bloodPressure
-        bloodPressureService.deleteBloodPressureById(id);
+        return bloodPressureService.deleteBloodPressureById(id);
     }
 }

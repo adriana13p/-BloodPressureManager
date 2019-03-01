@@ -135,6 +135,23 @@ public class UserService {
         return userDto;
     }
 
+    public boolean checkUserNameAndPass(String userName, String userPass) {
+        //check login in repo
+        boolean loginAccepted = false;
+        //find a user in the repository by userName
+        User user = userRepository.findByUserName(userName);
+        //check if the user exists in repository
+        if (user == null) {
+            //if the id does not exist in repository, throw an exception
+            //throw new NotFoundException("" + userName);
+            return false;
+        }
+        //check password
+        if (userPass.equals(user.getPassword())) {
+            loginAccepted = true;
+        }
+        return loginAccepted;
+    }
 
     public UserDTO updateUser(long id, UserDTO dto) {
         //update a user by id
