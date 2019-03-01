@@ -3,6 +3,7 @@ package org.fasttrackit.bloodpressuremanager.mapper;
 import org.fasttrackit.bloodpressuremanager.domain.BloodPressure;
 import org.fasttrackit.bloodpressuremanager.domain.User;
 import org.fasttrackit.bloodpressuremanager.dto.BloodPressureDTO;
+import org.fasttrackit.bloodpressuremanager.dto.BloodPressureWithUserNameDTO;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -42,6 +43,21 @@ public class BloodPressureConverter {
         bloodPressureDTO.setDateBP(bloodPressure.getDateBP());
         bloodPressureDTO.setNotesBP(bloodPressure.getNotesBP());
         //set user id fk
+        bloodPressureDTO.setIdUser(userToSave.getIdUser());
+
+        return bloodPressureDTO;
+    }
+
+    public BloodPressureDTO convertBloodPressureWithNameToDTO(BloodPressureWithUserNameDTO bloodPressureWithUserNameDTO, User userToSave) {
+        //convert a bloodPressureDto with user name to bloodPressureDTO with user id
+        BloodPressureDTO bloodPressureDTO = new BloodPressureDTO();
+
+        bloodPressureDTO.setIdBP(bloodPressureWithUserNameDTO.getIdBP());
+        bloodPressureDTO.setDateBP(bloodPressureWithUserNameDTO.getDateBP());
+        bloodPressureDTO.setSystolicBP(bloodPressureWithUserNameDTO.getSystolicBP());
+        bloodPressureDTO.setDiastolicBP(bloodPressureWithUserNameDTO.getDiastolicBP());
+        bloodPressureDTO.setPulseBP(bloodPressureWithUserNameDTO.getPulseBP());
+        bloodPressureDTO.setNotesBP(bloodPressureWithUserNameDTO.getNotesBP());
         bloodPressureDTO.setIdUser(userToSave.getIdUser());
 
         return bloodPressureDTO;

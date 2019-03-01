@@ -1,7 +1,11 @@
 package org.fasttrackit.bloodpressuremanager.web;
 
+import org.fasttrackit.bloodpressuremanager.domain.User;
 import org.fasttrackit.bloodpressuremanager.dto.BloodPressureDTO;
+import org.fasttrackit.bloodpressuremanager.dto.BloodPressureWithUserNameDTO;
 import org.fasttrackit.bloodpressuremanager.dto.UserDTO;
+import org.fasttrackit.bloodpressuremanager.mapper.BloodPressureConverter;
+import org.fasttrackit.bloodpressuremanager.persistence.UserRepository;
 import org.fasttrackit.bloodpressuremanager.service.BloodPressureService;
 import org.fasttrackit.bloodpressuremanager.service.UserService;
 import org.slf4j.Logger;
@@ -21,6 +25,10 @@ public class BloodPressureController {
     private BloodPressureService bloodPressureService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private BloodPressureConverter bloodPressureConverter;
 
     @RequestMapping(path = "/bloodPressureForUser/{userName}", method = RequestMethod.GET)
     public List<BloodPressureDTO> bloodPressureForUser(@PathVariable("userName") String userName) {
@@ -66,9 +74,24 @@ public class BloodPressureController {
         return bloodPressureService.saveBloodPressure(bloodPressureDTO);
 
     }
+    @RequestMapping(path = "/saveBloodPressureForUserName", method = RequestMethod.POST)
+    public boolean saveBloodPressureForUserName(@RequestBody BloodPressureWithUserNameDTO bloodPressureWithUserNameDTO) throws Exception {
+      //save bloodPressure for user name
+       User user = userRepository.findByUserName(bloodPressureWithUserNameDTO.getUserName());
+
+        BloodPressureDTO bloodPressureDTO = bloodPressureConverter.convertBloodPressureWithNameToDTO(bloodPressureWithUserNameDTO,user);
+        //save a bloodPressure
+        return bloodPressureService.saveBloodPressure(bloodPressureDTO);
+
+    }
+
 
     @RequestMapping(path = "/updateBloodPressure/{id}", method = RequestMethod.PUT)
-    public BloodPressureDTO updateBloodPressure(@PathVariable long id, @RequestBody BloodPressureDTO bloodPressureDTO) {
+    public BloodPressureDTO updateBloodPressure(@PathVariable long id, @RequestBody BloodPressureWithUserNameDTO bloodPressureWithUserNameDTO) {
+        //save bloodPressure for user name
+        User user = userRepository.findByUserName(bloodPressureWithUserNameDTO.getUserName());
+
+        BloodPressureDTO bloodPressureDTO = bloodPressureConverter.convertBloodPressureWithNameToDTO(bloodPressureWithUserNameDTO,user);
         //update a bloodPressure
         return bloodPressureService.updateBloodPressure(id, bloodPressureDTO);
     }

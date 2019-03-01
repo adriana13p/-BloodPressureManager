@@ -82,7 +82,7 @@ public class BloodPressureService {
     @Transactional
     public boolean saveBloodPressure(BloodPressureDTO bloodPressureDto) {
         //save a BloodPressure in repository ()
-       boolean savedBP = false;
+        boolean savedBP = false;
         //check that at least one field is not empty
         if ((bloodPressureDto.getSystolicBP() == null) ||
                 (bloodPressureDto.getDiastolicBP() == null) ||
@@ -108,7 +108,7 @@ public class BloodPressureService {
     public boolean deleteBloodPressureById(long bloodPressureId) {
         //delete a bloodPressure from repository
         //check bloodPressure ID
-      boolean bpDeleted = false;
+        boolean bpDeleted = false;
         boolean bloodPressureExists = checkBloodPressureIdExistInRepository(bloodPressureId);
         if (bloodPressureExists) {
             //if the bloodPressure id exists in repository, delete the user details
@@ -127,7 +127,7 @@ public class BloodPressureService {
     public BloodPressureDTO updateBloodPressure(long id, BloodPressureDTO bpDto) {
         //update a user by id
         BloodPressure bloodPressure = bloodPressureRepository.findOne(id);
-        bloodPressure.setIdBP(bpDto.getIdBP());
+        bloodPressure.setIdBP(id);
         bloodPressure.setSystolicBP(bpDto.getSystolicBP());
         bloodPressure.setDiastolicBP(bpDto.getDiastolicBP());
         bloodPressure.setPulseBP(bpDto.getPulseBP());
