@@ -13,7 +13,8 @@ import org.springframework.boot.test.SpringApplicationContextLoader;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.*;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Tests for blood pressures
@@ -86,7 +87,7 @@ public class BloodPressureIntegrationTest {
     @Test
     public void updateABloodPressure() {
         //update a blood pressure by id
-        BloodPressureDTO bpToSet =new BloodPressureDTO();
+        BloodPressureDTO bpToSet = new BloodPressureDTO();
         bpToSet.setIdBP(19);
         bpToSet.setIdUser(5);
         //format a string into date

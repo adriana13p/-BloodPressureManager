@@ -143,8 +143,8 @@ public class UserService {
         //check if the user exists in repository
         if (user == null) {
             //if the id does not exist in repository, throw an exception
-            throw new NotFoundException("" + userName);
-           // return false;
+            //throw new NotFoundException("" + userName);
+            return false;
         }
         //check password
         if (userPass.equals(user.getPassword())) {

@@ -74,12 +74,13 @@ public class BloodPressureController {
         return bloodPressureService.saveBloodPressure(bloodPressureDTO);
 
     }
+
     @RequestMapping(path = "/saveBloodPressureForUserName", method = RequestMethod.POST)
     public boolean saveBloodPressureForUserName(@RequestBody BloodPressureWithUserNameDTO bloodPressureWithUserNameDTO) throws Exception {
-      //save bloodPressure for user name
-       User user = userRepository.findByUserName(bloodPressureWithUserNameDTO.getUserName());
+        //save bloodPressure for user name
+        User user = userRepository.findByUserName(bloodPressureWithUserNameDTO.getUserName());
 
-        BloodPressureDTO bloodPressureDTO = bloodPressureConverter.convertBloodPressureWithNameToDTO(bloodPressureWithUserNameDTO,user);
+        BloodPressureDTO bloodPressureDTO = bloodPressureConverter.convertBloodPressureWithNameToDTO(bloodPressureWithUserNameDTO, user);
         //save a bloodPressure
         return bloodPressureService.saveBloodPressure(bloodPressureDTO);
 
@@ -91,7 +92,7 @@ public class BloodPressureController {
         //save bloodPressure for user name
         User user = userRepository.findByUserName(bloodPressureWithUserNameDTO.getUserName());
 
-        BloodPressureDTO bloodPressureDTO = bloodPressureConverter.convertBloodPressureWithNameToDTO(bloodPressureWithUserNameDTO,user);
+        BloodPressureDTO bloodPressureDTO = bloodPressureConverter.convertBloodPressureWithNameToDTO(bloodPressureWithUserNameDTO, user);
         //update a bloodPressure
         return bloodPressureService.updateBloodPressure(id, bloodPressureDTO);
     }
