@@ -4,8 +4,6 @@ public class UserDTO {
     private long idUser;
     private String userName;
     private String password;
-    //TODO intrebare: ar trebui sa adaug si lista de bloodPressures ca in object? sau nu e musai?
-    // sau o lista cu id-urile pentru bloodPressures?
 
     public UserDTO() {
 

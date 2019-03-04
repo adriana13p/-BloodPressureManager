@@ -40,12 +40,15 @@ public class UserController {
         return userService.UserWithDetailsDTO(id);
     }
 
-    @RequestMapping(path = "/saveUser", method = RequestMethod.POST)
-    public void saveUser(@RequestBody UserDTO user) throws Exception {
-        LOGGER.info("user >> {}", user.getUserName());
-        //save a user
-        userService.saveUser(user);
 
+    @RequestMapping(path = "/saveUser", method = RequestMethod.POST)
+    public boolean saveUser(@RequestParam(value = "userName", required = true) String userName,
+                            @RequestParam(value = "userPass", required = true) String userPass) throws Exception {
+        UserDTO user = new UserDTO();
+        user.setUserName(userName);
+        user.setPassword(userPass);
+        //save a user
+        return userService.saveUser(user);
     }
 
     @RequestMapping(path = "/updateUser/{id}", method = RequestMethod.PUT)

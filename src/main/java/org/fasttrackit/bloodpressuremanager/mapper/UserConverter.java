@@ -34,6 +34,7 @@ public class UserConverter {
         user.setUserName(userDTO.getUserName());
         user.setIdUser(userDTO.getIdUser());
         user.setPassword(userDTO.getPassword());
+
         return user;
     }
 

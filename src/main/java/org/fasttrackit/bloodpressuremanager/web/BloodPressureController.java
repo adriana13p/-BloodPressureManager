@@ -32,6 +32,7 @@ public class BloodPressureController {
 
     @RequestMapping(path = "/bloodPressureForUser/{userName}", method = RequestMethod.GET)
     public List<BloodPressureDTO> bloodPressureForUser(@PathVariable("userName") String userName) {
+        //get a bloodPressure list by User Name
         //get user by name in order to obtain the users id
         UserDTO userDto = userService.getUserByUserName(userName);
 
@@ -77,7 +78,7 @@ public class BloodPressureController {
 
     @RequestMapping(path = "/saveBloodPressureForUserName", method = RequestMethod.POST)
     public boolean saveBloodPressureForUserName(@RequestBody BloodPressureWithUserNameDTO bloodPressureWithUserNameDTO) throws Exception {
-        //save bloodPressure for user name
+        //save bloodPressure using the user name
         User user = userRepository.findByUserName(bloodPressureWithUserNameDTO.getUserName());
 
         BloodPressureDTO bloodPressureDTO = bloodPressureConverter.convertBloodPressureWithNameToDTO(bloodPressureWithUserNameDTO, user);
@@ -85,7 +86,6 @@ public class BloodPressureController {
         return bloodPressureService.saveBloodPressure(bloodPressureDTO);
 
     }
-
 
     @RequestMapping(path = "/updateBloodPressure/{id}", method = RequestMethod.PUT)
     public BloodPressureDTO updateBloodPressure(@PathVariable long id, @RequestBody BloodPressureWithUserNameDTO bloodPressureWithUserNameDTO) {

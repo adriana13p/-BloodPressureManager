@@ -40,8 +40,8 @@ public class UserIntegrationTest {
 
         //save a user
         UserDTO userToSave = new UserDTO();
-        userToSave.setUserName("David13");
-        userToSave.setPassword("David13");
+        userToSave.setUserName("test");
+        userToSave.setPassword("test");
         userService.saveUser(userToSave);
     }
 
@@ -50,8 +50,8 @@ public class UserIntegrationTest {
 
         //save a user with userDetails
         UserDTO userToSave = new UserDTO();
-        userToSave.setUserName("Test1");
-        userToSave.setPassword("Test1");
+        userToSave.setUserName("Test3");
+        userToSave.setPassword("Test3");
 
         //save a userDetails with all fields filled
         UserDetailsDTO userDetailsDto = new UserDetailsDTO();
@@ -93,9 +93,17 @@ public class UserIntegrationTest {
     }
 
     @Test
+    public void deleteAUserByName() {
+        //delete a user by id
+        userService.deleteUserByName("test2");
+        System.out.println("User was deleted");
+    }
+
+
+    @Test
     public void deleteAUserWithDetailsAndBP() {
         //delete a user by id
-        userService.deleteUserWithDetailsAndBP(4);
-        System.out.println("User was deleted");
+        userService.deleteUserWithDetailsAndBP(22);
+       // System.out.println("User was deleted");
     }
 }

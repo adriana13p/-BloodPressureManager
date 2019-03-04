@@ -38,14 +38,15 @@ public class UserService {
     @Autowired
     private UserWithDetailsConverter userWithDetailsConverter;
 
-    public void saveUser(UserDTO userToSaveDto) throws Exception {
+    public boolean saveUser(UserDTO userToSaveDto) throws Exception {
         //save a user in repository (user name and password must not be null)
         //check user's name is not null
         CheckUtils.checkStringIsNotNull(userToSaveDto.getUserName(), "User name");
 
         //check password is not null
         CheckUtils.checkStringIsNotNull(userToSaveDto.getPassword(), "Password");
-
+        //set a variable to check if the user vas saved
+        boolean userSaved = false;
         //check if the user name exists in repository
         boolean userExists = checkUserNameExistInRepository(userToSaveDto.getUserName());
         if (!userExists) {
@@ -53,14 +54,16 @@ public class UserService {
             User userObject = userConverter.convertUserToObjectFull(userToSaveDto);
             try {
                 userRepository.save(userObject);
+                userSaved = true;
             } catch (Exception e) {
                 System.out.print("Error when saving user " + e);
             }
         } else {
             System.out.println("A user with " + userToSaveDto.getUserName() + "already exists");
 
-            throw new Exception("A user with " + userToSaveDto.getUserName() + " already exists");
+            //throw new Exception("A user with " + userToSaveDto.getUserName() + " already exists");
         }
+        return userSaved;
     }
 
     public void saveUserWithDetails(UserDTO userToSaveDto, UserDetails userDetails) throws Exception {
@@ -199,13 +202,10 @@ public class UserService {
             //if the user id exists in repository, delete the user
             //get the user object from repository
             UserDTO userDTO = getUserById(idUser);
-            //get user, userDetails and BloodPressures list
+            //get user and BloodPressures list
             User userToDelete = userConverter.convertUserToObjectFull(userDTO);
-            UserDetails userDetails = userToDelete.getUserDetails();
             List<BloodPressureDTO> userBPList = bloodPressureService.getBloodPressureListByUserId(idUser);
             //delete bloodPressures
-            //TODO intrebare: testul trece dar nu sterge din tabelul blood_pressures => nu sterge nici userul
-            // pt ca: delete on table "users" violates foreign key constraint "fk_j2dgywb2kn6pnpbj52v8q9gj8" on table "blood_pressures"
             try {
                 for (int i = 0; i < userBPList.size(); i++) {
                     long bpToDeleteId = userBPList.get(i).getIdBP();
@@ -214,20 +214,38 @@ public class UserService {
             } catch (Exception e) {
                 System.out.print("Error when deleting bloodPressure " + e);
             }
+            //delete user (user details are deleted when the user is deleted)
+            try {
+                userRepository.delete(userToDelete);
+            } catch (Exception e) {
+                System.out.print("Error when deleting user " + e);
+            }
+
+        } else {
+            System.out.println("User for id " + idUser + "does not exist");
+        }
+    }
+
+    public void deleteUserByName(String userName) {
+        //delete a user from repository
+        //check user ID
+        boolean userExists = checkUserNameExistInRepository(userName);
+        if (userExists) {
+            //if the user id exists in repository, delete the user
+            //get the user object from repository
+            UserDTO userDTO = getUserByUserName(userName);
+            //get user, userDetails and BloodPressures list
+            User userToDelete = userConverter.convertUserToObjectFull(userDTO);
+
             //delete user
             try {
                 userRepository.delete(userToDelete);
             } catch (Exception e) {
                 System.out.print("Error when deleting user " + e);
             }
-            //delete userDetails
-            try {
-                userDetailsRepository.delete(userDetails.getIdDetails());
-            } catch (Exception e) {
-                System.out.print("Error when deleting userDetails " + e);
-            }
+
         } else {
-            System.out.println("User for id " + idUser + "does not exist");
+            System.out.println("User for user " + userName + "does not exist");
         }
     }
 }
